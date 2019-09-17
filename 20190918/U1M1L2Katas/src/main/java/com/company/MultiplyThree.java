@@ -12,7 +12,7 @@ public class MultiplyThree {
         double secondNumber= Double.parseDouble(scanner.nextLine());
         double thirdNumber= Double.parseDouble(scanner.nextLine());
         double product=(firstNumber*secondNumber*thirdNumber);
-        System.out.println("The sum is "+String.format( "%.0f",product));
+        System.out.println("The product is "+String.format( "%.0f",product));
 
     }
 }
