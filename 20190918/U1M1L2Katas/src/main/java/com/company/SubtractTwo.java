@@ -10,7 +10,7 @@ public class SubtractTwo {
         System.out.println("Enter 2 numbers (press enter after each number)");
         double firstNumber= Double.parseDouble(scanner.nextLine());
         double secondNumber= Double.parseDouble(scanner.nextLine());
-        System.out.println("The difference is "+String.format( "%.0f",0-secondNumber+firstNumber));
+        System.out.println("The difference is "+String.format( "%.0f",firstNumber-secondNumber));
 
     }
 }
