@@ -1,0 +1,24 @@
+errors:
+--------------
+ln number	modified code				description
+23		framingCost =...			replaced cementCost with framingCost
+26		int perimeter = 2*length + 2*width;	replaced - with +	
+32		...perimeter*framingCost);		replaced + with *
+
+test case:
+input length and width of 10 with 
+cementCost and framing Cost of 2 and 3, respectively
+
+expected:
+area=100
+perimeter=40
+total cement cost=200
+total framing cost=120
+
+actual (prior to modification):
+area=100
+perimeter=0
+total cement cost=300
+total framing cost=0
+
+After modification, we obtained the expected results. 
