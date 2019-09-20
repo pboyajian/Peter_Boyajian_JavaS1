@@ -8,6 +8,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
   <component name="ProjectId" id="1R6eUE7O7jQueN1n2Tgk0Ds4x4F" />
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -40,6 +47,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="AppTest.shouldReturnArrayOfIntsLessThanFiveAndArrayOfIntsGreaterThanOrEqualToFiveWhenGivenArrayOfInts" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="U1-M1-L6-Katas" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.company.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.company" />
+      <option name="MAIN_CLASS_NAME" value="com.company.AppTest" />
+      <option name="METHOD_NAME" value="shouldReturnArrayOfIntsLessThanFiveAndArrayOfIntsGreaterThanOrEqualToFiveWhenGivenArrayOfInts" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="AppTest.shouldReturnNewArrayOfValuesLessThanFiveWhenGivenArrayOfIntegers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="U1-M1-L6-Katas" />
       <extension name="coverage">
@@ -56,7 +79,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AppTest.shouldReturnSecondLargestValueWhenGivenArrayOfIntegers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AppTest.shouldReturnSplitArrayByEvenAndOddIndicesWhenGivenArray" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="U1-M1-L6-Katas" />
       <extension name="coverage">
         <pattern>
@@ -66,7 +89,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.company" />
       <option name="MAIN_CLASS_NAME" value="com.company.AppTest" />
-      <option name="METHOD_NAME" value="shouldReturnSecondLargestValueWhenGivenArrayOfIntegers" />
+      <option name="METHOD_NAME" value="shouldReturnSplitArrayByEvenAndOddIndicesWhenGivenArray" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -91,9 +114,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.AppTest" />
+        <item itemvalue="JUnit.AppTest.shouldReturnSplitArrayByEvenAndOddIndicesWhenGivenArray" />
+        <item itemvalue="JUnit.AppTest.shouldReturnArrayOfIntsLessThanFiveAndArrayOfIntsGreaterThanOrEqualToFiveWhenGivenArrayOfInts" />
         <item itemvalue="JUnit.AppTest.shouldReturnNewArrayOfValuesLessThanFiveWhenGivenArrayOfIntegers" />
         <item itemvalue="JUnit.AppTest.shouldSwapFirstAndLastIndicesWhenGivenArray" />
-        <item itemvalue="JUnit.AppTest.shouldReturnSecondLargestValueWhenGivenArrayOfIntegers" />
       </list>
     </recent_temporary>
   </component>
@@ -109,31 +133,5 @@
       <updated>1568991986121</updated>
     </task>
     <servers />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/company/AppTest.java</url>
-          <line>130</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/company/AppTest.java</url>
-          <line>131</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/company/AppTest.java</url>
-          <line>132</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/company/AppTest.java</url>
-          <line>133</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

@@ -106,4 +106,69 @@ public class App {
 
         return intArr;
     }
+
+    public static int[] moreThanFive(int[] arr){
+        int num=0;
+        for (int i:arr
+        ) {
+            if (i>=5){
+                num++;
+            }
+        }
+        if (num==0){return null;}
+        String str="";
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i]>=5){
+                str+=arr[i]+"_";
+            }
+        }
+        String[] strArr=str.split("_");
+        int[] intArr=new int[num];
+        for (int i = 0; i < num; i++) {
+            intArr[i]=Integer.parseInt(strArr[i]);
+        }
+
+        return intArr;
+    }
+
+
+    public static int[][] splitAtFive(int[] arr){
+        int[] ltFive=lessThanFive(arr);
+        int[] gtFive=moreThanFive(arr);
+
+        if(gtFive==null){
+           int[] gtFive2={};
+            int[][] retArr={ltFive,gtFive2};
+            return retArr;
+        }
+        if(ltFive==null){
+            int[] ltFive2={};
+            int[][] retArr={ltFive2,gtFive};
+            return retArr;
+        }
+        int[][] retArr={ltFive,gtFive};
+
+        return retArr;
+    }
+
+    public static String[][] evensAndOdds(String[] arr){
+        int len=arr.length;
+        String[] evens=new String[len/2];
+        String[] odds=new String[len/2];
+        if (len%2==1){
+             evens=new String[len/2+1];
+        }
+        for (int i = 0; i < len; i+=2) {
+            evens[i/2]=arr[i];
+        }
+        int counter=-1;
+        for (int i = 0; i <len; i+=1) {
+            if (i%2==1){
+                counter++;
+                odds[counter]=arr[i];
+            }
+        }
+        String[][] retArr={evens,odds};
+        return retArr;
+    }
 }
