@@ -1,0 +1,13 @@
+We used three different approaches to model shapes in Java: 
+	1. Declaring an abstract Shape class.
+	2. Declaring a concrete Shape class.
+	3. Declaring a Shape Interface.
+In each case, we created circle, square, and triangle classes which extended (resp. implemented) the Shape class (resp. Interface). Personally, I preferred the Interface approach because it was the most lightweight; it provided all of the relational structure required with no unnecessary baggage or restrictions. Creating a concrete class, by contrast, both granted us the abylity to instantiate a Shape object and restricted the square, triangle, and circle classes from extending any additional classes. The Abstract class approach provided this same restriction to the square, triangle, and circle classes, but did not give us the abylity to instantiate a Shape object.
+
+One may argue that the abstract approach is better than the interface approach because it allows us to associate properties with any shape by defining respective variables/methods in the abstract class. We could, for example, declare:
+
+		protected double area, perimeter;
+
+ in the abstract class. This would indeed allow us to have a perimeter and area defined for any shape which extends Shape. How much does this really matter, though? We obviously can't initialize the area/perimeter to any useful values inside the abstract class, so we might as well just declare them in the child classes of Shape (e.g. Square, Circle, and Triangle).
+ 
+ Since there are no obvious advantages to using an abstract class instead of an interface in this example, we should use the less restrictive of the two. Suppose that there were some other class, one which was NOT a subclass of Shape, that we want a Square to extend. If Shape was an abstract class, then we couldn't do this, but we could if it was an interface.
