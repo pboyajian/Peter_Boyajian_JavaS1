@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="21243cbd-38fd-42ff-97bc-c4f5826c9397" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="JUnit4 Test Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1RhcKS0oq3nULM04U2YFXR2sh5A" />
+  <component name="PropertiesComponent">
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.CarInventoryTest.shouldFindNoSearchResultsForInvalidInput">
+    <configuration name="CarInventoryTest.shouldFindNoSearchResultsForEmptyStrings" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CarInventory" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CarInventoryTest" />
+      <option name="METHOD_NAME" value="shouldFindNoSearchResultsForEmptyStrings" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CarInventoryTest.shouldFindNoSearchResultsForInvalidInput" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CarInventory" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CarInventoryTest" />
+      <option name="METHOD_NAME" value="shouldFindNoSearchResultsForInvalidInput" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CarInventoryTest.shouldSearchCarColor" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CarInventory" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CarInventoryTest" />
+      <option name="METHOD_NAME" value="shouldSearchCarColor" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CarInventoryTest.shouldSearchCarMileage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CarInventory" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CarInventoryTest" />
+      <option name="METHOD_NAME" value="shouldSearchCarMileage" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CarInventoryTest.shouldSearchCarModel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CarInventory" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CarInventoryTest" />
+      <option name="METHOD_NAME" value="shouldSearchCarModel" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.CarInventoryTest.shouldFindNoSearchResultsForInvalidInput" />
+        <item itemvalue="JUnit.CarInventoryTest.shouldFindNoSearchResultsForEmptyStrings" />
+        <item itemvalue="JUnit.CarInventoryTest.shouldSearchCarMileage" />
+        <item itemvalue="JUnit.CarInventoryTest.shouldSearchCarColor" />
+        <item itemvalue="JUnit.CarInventoryTest.shouldSearchCarModel" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="21243cbd-38fd-42ff-97bc-c4f5826c9397" name="Default Changelist" comment="" />
+      <created>1570122703510</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1570122703510</updated>
+    </task>
+    <servers />
+  </component>
+</project>
