@@ -51,7 +51,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CarInventoryTest.shouldFindNoSearchResultsForInvalidInput">
+  <component name="RunManager" selected="JUnit.CarInventoryTest.shouldSearchCarMileage">
     <configuration name="CarInventoryTest.shouldFindNoSearchResultsForEmptyStrings" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="CarInventory" />
       <option name="PACKAGE_NAME" value="" />
@@ -104,9 +104,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CarInventoryTest.shouldSearchCarMileage" />
         <item itemvalue="JUnit.CarInventoryTest.shouldFindNoSearchResultsForInvalidInput" />
         <item itemvalue="JUnit.CarInventoryTest.shouldFindNoSearchResultsForEmptyStrings" />
-        <item itemvalue="JUnit.CarInventoryTest.shouldSearchCarMileage" />
         <item itemvalue="JUnit.CarInventoryTest.shouldSearchCarColor" />
         <item itemvalue="JUnit.CarInventoryTest.shouldSearchCarModel" />
       </list>

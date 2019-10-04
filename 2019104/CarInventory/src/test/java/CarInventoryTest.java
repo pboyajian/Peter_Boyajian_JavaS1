@@ -126,12 +126,12 @@ public class CarInventoryTest {
         carInventory.add(car);
         Car car2=new Car("a","ab",31,"a",41);
         carInventory.add(car2);
-        Car car3=new Car("b","ab",3,"c",4);
+        Car car3=new Car("b","ab",3,"c",3);
         carInventory.add(car3);
         carInventory.list(carInventory.search(5,"4"));
         String output = systemOutRule.getLog();
         assertTrue(output.contains("1=Car{make='a', model='a', year=3, color='a', mileage=4}"));
-        assertTrue(output.contains("3=Car{make='b', model='ab', year=3, color='c', mileage=4}"));
+        assertTrue(output.contains("3=Car{make='b', model='ab', year=3, color='c', mileage=3}"));
     }
 
 

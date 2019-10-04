@@ -67,7 +67,7 @@ public class CarInventory {
                         entrySet().
                         stream().
                         filter(b->b.getValue().
-                                getMileage()==mileage).collect(Collectors.toMap(x -> x.getKey(), x -> x.getValue()));
+                                getMileage()<=mileage).collect(Collectors.toMap(x -> x.getKey(), x -> x.getValue()));
             default:
                 return carMap;
         }
