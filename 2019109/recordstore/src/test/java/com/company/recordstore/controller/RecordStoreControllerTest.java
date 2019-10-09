@@ -32,15 +32,13 @@ public class RecordStoreControllerTest {
     private ObjectMapper mapper=new ObjectMapper();
 
     private List<Record> recordList;
-    private Record record4;
     @Before
     public void setUp() throws Exception{
         recordList=new ArrayList<>();
         recordList.add(new Record("Eagles","Greatest Hits1"));
         recordList.add(new Record("Eagles2","Greatest Hits2"));
         recordList.add(new Record("Eagles3","Greatest Hits3"));
-        record4=new Record("Eagles4","Greatest Hits4");
-        recordList.add(record4);
+        recordList.add(new Record("Eagles4","Greatest Hits4"));
     }
 
     @Test
@@ -68,7 +66,7 @@ public class RecordStoreControllerTest {
 
     @Test
     public void shouldRetrieveAnExistingRecord() throws Exception{
-        String outputJson =mapper.writeValueAsString(record4);
+        String outputJson =mapper.writeValueAsString(recordList.get(3));
         mockMvc.perform(
                 get("/records/{ix} ",4)
         )
