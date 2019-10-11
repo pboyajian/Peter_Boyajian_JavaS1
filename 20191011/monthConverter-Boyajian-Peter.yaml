@@ -1,0 +1,36 @@
+openapi: 3.0.0
+info:
+  title: Month Converter
+  description: >-
+     Returns the name of the month that the number converts to
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080
+    description: Local dev server
+paths:
+  /day/{monthNumber}:
+  # Routes for GET and POST under this path
+    get:
+      summary: Returns the name of the month that the number converts to
+      parameters:
+        - name: monthNumber
+          in: path
+          required: true
+          description:  The month number
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+            maximum: 12
+      responses:
+        '201':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: integer
+        '422':
+          description: The input is out of range.
+      
+
+        

@@ -1,0 +1,81 @@
+openapi: 3.0.0
+info:
+  title: Weather Service
+  description: >-
+     Returns info about the weather
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080
+    description: Local dev server
+paths:
+  /temp/{zipcode}:
+  # Routes for GET and POST under this path
+    get:
+      summary: Returns Temp for given zipcode in F and C
+      parameters:
+        - name: zipcode
+          in: path
+          required: true
+          description: a five digit zipcode
+          schema:
+            type: integer
+            format: int64
+            minimum: 10000
+            maximum: 99999
+      responses:
+        '201':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Temperature'
+        '422':
+          description: The zipcode is not exactly five digits
+          
+  /conditions/{zipcode}:
+  # Routes for GET and POST under this path
+    get:
+      summary: Returns weather conditions for given zipcode
+      parameters:
+        - name: zipcode
+          in: path
+          required: true
+          description: a five digit zipcode
+          schema:
+            type: integer
+            format: int64
+            minimum: 10000
+            maximum: 99999
+      responses:
+        '201':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conditions'
+        '422':
+          description: The zipcode is not exactly five digits
+components:
+  schemas:
+    Temperature:
+      properties:
+        fahrenheit:
+          type: number
+        celcius:
+          type: number
+      required:
+        - fahrenheit
+        - celcius
+    Conditions:
+      properties:
+        Temperature:
+          type: object
+        windSpeed:
+          type: integer
+        windDirection:
+          type: integer
+        skies:
+          type: string
+        precipitation:
+          type: string
+        

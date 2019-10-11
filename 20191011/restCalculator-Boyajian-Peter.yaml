@@ -1,0 +1,101 @@
+openapi: 3.0.0
+info:
+  title: REST Calculator
+  description: >-
+    A simple calculator
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080
+    description: Local dev server
+paths:
+  /add:
+    post:
+      summary: add the two inputs together
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+            # we are referencing the Record object definition
+              $ref: '#/components/schemas/Calculator'
+      responses:
+        '201':
+          description: the result of the calculation
+          content:
+            application/json:
+              schema:
+                type: number
+        '422':
+          description: missing operand
+          
+  /subtract:
+    post:
+      summary: subtract the second input from the first
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+            # we are referencing the Record object definition
+              $ref: '#/components/schemas/Calculator'
+      responses:
+        '201':
+          description: the result of the calculation
+          content:
+            application/json:
+              schema:
+                type: number
+        '422':
+          description: missing operand
+          
+  /multiply:
+    post:
+      summary: multiply the two inputs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+            # we are referencing the Record object definition
+              $ref: '#/components/schemas/Calculator'
+      responses:
+        '201':
+          description: the result of the calculation
+          content:
+            application/json:
+              schema:
+                type: number
+        '422':
+          description: missing operand
+
+  /divide:
+    post:
+      summary: divide the first input by the second
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+            # we are referencing the Record object definition
+              $ref: '#/components/schemas/Calculator'
+      responses:
+        '201':
+          description: the result of the calculation
+          content:
+            application/json:
+              schema:
+                type: number
+        '422':
+          description: missing operand
+components:
+  schemas:
+    Calculator:
+      properties:
+        operand1:
+          type: number
+        operand2:
+          type: number
+      required:
+        - operand1
+        - operand2
+        
