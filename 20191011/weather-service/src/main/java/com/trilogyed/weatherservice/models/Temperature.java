@@ -1,12 +1,39 @@
 package com.trilogyed.weatherservice.models;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.Objects;
 
 public class Temperature {
     private double tempInKelvin;
 
-    public Temperature(double zipcode) {
+    @Min(value = 10000, message = "zipcode should be at least 5 digits")
+    @Max(value = 99999, message = "zipcode should be at most 5 digits")
+    private int zipcode;
+
+    public Temperature() {
+    }
+
+    public Temperature(double tempInKelvin, @Min(value = 10000, message = "zipcode should be at least 5 digits") @Max(value = 99999, message = "zipcode should be at most 5 digits") int zipcode) {
+        this.tempInKelvin = tempInKelvin;
+        this.zipcode = zipcode;
+    }
+
+    public double getTempInKelvin() {
+        return tempInKelvin;
+    }
+
+    public int getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(int zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public Temperature(int zipcode) {
         this.tempInKelvin = zipcode/300.0-33;
+        this.zipcode=zipcode;
     }
 
     public double toF(){
@@ -34,10 +61,4 @@ public class Temperature {
         return Objects.hash(tempInKelvin);
     }
 
-    @Override
-    public String toString() {
-        return "Temperature{" +
-                "tempInKelvin=" + tempInKelvin +
-                '}';
-    }
 }

@@ -8,6 +8,10 @@ public class Conditions {
     private String windDirection;
     private String skies;
     private String precipitation;
+    private int zipcode;
+
+    public Conditions() {
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -66,11 +70,21 @@ public class Conditions {
         this.precipitation = precipitation;
     }
 
-    public Conditions(Temperature temp, double windSpeed, String windDirection, String skies, String precipitation) {
+    public Conditions(Temperature temp, double windSpeed, String windDirection, String skies, String precipitation, int zipcode) {
         this.temp = temp;
         this.windSpeed = windSpeed;
         this.windDirection = windDirection;
         this.skies = skies;
         this.precipitation = precipitation;
+        this.zipcode = zipcode;
+    }
+
+    public Conditions(int zipcode) {
+        this.temp = new Temperature(zipcode);
+        windDirection="West";
+        windSpeed=7;
+        skies="cloudy";
+        precipitation="rain";
+        this.zipcode=zipcode;
     }
 }

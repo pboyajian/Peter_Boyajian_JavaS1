@@ -12,16 +12,24 @@ public class Calculator {
     }
 
     public  double sum(){
-        return op1+op2;
+        try{return op1+op2;}catch (Exception e){
+            throw new IllegalArgumentException("Illegal args");
+        }
     }
     public  double mult(){
-        return op1*op2;
+        try{return op1*op2;}catch (Exception e){
+            throw new IllegalArgumentException("Illegal args");
+        }
     }
     public  double subtract(){
-        return op1-op2;
+        try{return op1-op2;}catch (Exception e){
+            throw new IllegalArgumentException("Illegal args");
+        }
     }
     public  double divide(){
-        return op1/op2;
+        try{return op1/op2;}catch (Exception e){
+            throw new IllegalArgumentException("Illegal args");
+        }
     }
 
     public double getOp1() {
