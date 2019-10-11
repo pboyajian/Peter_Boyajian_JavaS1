@@ -61,19 +61,19 @@ components:
       properties:
         fahrenheit:
           type: number
-        celcius:
+        celsius:
           type: number
       required:
         - fahrenheit
-        - celcius
+        - celsius
     Conditions:
       properties:
         Temperature:
           type: object
         windSpeed:
-          type: integer
+          type: double
         windDirection:
-          type: integer
+          type: string
         skies:
           type: string
         precipitation:
