@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  title: City Web Service
+  description: >-
+    A simple service that allows CRUD operations for a city database
+    system.
+  version: 0.0.1
+servers:
+  - url: 'http://localhost:8080'
+    description: Local dev server
+paths:
+  /city:
+  # Routes for GET and POST under this path
+    post:
+      summary: Creates a new city entry with the given information
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/City'
+      responses:
+        '201':
+          description: A record object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/City'
+        '400':
+          description: Invalid request syntax.
+        '422':
+          description: Incomplete city information. Some required fields missing.
+
+    get:
+      summary: Retrieves all Cities in the database
+      responses:
+        '200':
+          description: Array containing all cities in the database.
+          content:
+            application/json:
+              schema:
+                # we are referencing the CityList definition found at the bottom of the file
+                $ref: '#/components/schemas/CityList'
+          
+  /city/{name}:
+    # GET, DELETE, and PUT are all under this path entry
+    get:
+      summary: Retrieves the entry for the city with the given name.
+      parameters: 
+        - name: name
+          in: path
+          required: true
+          description: name of the city you would like to retrieve.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: City object matching name
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/City'
+      
+    delete:
+      summary: Deletes the entry for the city with the given name.
+      parameters: 
+        - name: name
+          in: path
+          required: true
+          description: name of the city you would like to delete.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Record successfully deleted.
+          
+  
+# This section defines the Record object that goes back and forth as JSON
+components:
+  schemas:
+    City:
+      properties:
+        name:
+          type: string
+        state:
+          type: string
+        population:
+          type: integer
+        isStateCapital:
+          type: boolean
+      required: 
+        - name
+        - state
+        - population
+        - isStateCapital
+
+    CityList:
+      type: array
+      items: 
+        $ref: '#/components/schemas/City'
