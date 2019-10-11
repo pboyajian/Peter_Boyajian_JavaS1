@@ -89,4 +89,14 @@ public class CityServiceControllerTest {
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
+
+    @Test
+    public void shouldHandle404WhenWeEnterInvalidCity() throws Exception {
+        mockMvc.perform(
+                get("/city/{name}","as;dkf")                            //perform the post
+        )
+                .andDo(print())                                 // print the output
+                .andExpect(status().isNotFound())   //assert     // we should have gotten back a 201 - created
+                .andExpect(content().string(containsString("not a valid city name")));
+}
 }

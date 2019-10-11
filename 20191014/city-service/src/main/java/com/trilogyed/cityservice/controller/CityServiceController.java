@@ -1,5 +1,6 @@
 package com.trilogyed.cityservice.controller;
 
+import com.trilogyed.cityservice.exceptions.InvalidCityNameException;
 import com.trilogyed.cityservice.models.City;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -48,7 +49,7 @@ String tempName;
             if (tempName.equalsIgnoreCase(name)){
                 return city;
             }}
-        return null;
+        throw new InvalidCityNameException("That is not a valid city name!");
     }
 
     @RequestMapping(value="/city/{name}",method = RequestMethod.DELETE)
