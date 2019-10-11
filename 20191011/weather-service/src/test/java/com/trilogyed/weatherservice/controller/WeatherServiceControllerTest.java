@@ -72,17 +72,13 @@ public class WeatherServiceControllerTest {
         String inputJson =mapper.writeValueAsString(new Temperature(zipcode));
         // act
         mockMvc.perform(
-                put("/temp/{zipcode}",zipcode)                            //perform the post
-                        .content(inputJson)                         // set the request body
-                        .contentType(MediaType.APPLICATION_JSON)   // add the header (Postman helps us with this when we
-                //                 use Postman)
+                put("/temp/{zipcode}",zipcode)
+                        .content(inputJson)
+                        .contentType(MediaType.APPLICATION_JSON)
         )
-                .andDo(print())                                 // print the output
-                .andExpect(status().isUnprocessableEntity())   //assert     // we should have gotten back a 201 - created
-                .andExpect(content().string(containsString("invalid zipcode.")));
-        //.andExpect(content().string(containsString("<if theres another error message>")))
-        //.andExpect(content().string(containsString("<you can do as many matches as you need>")));       // our json should match
-
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(content().string(containsString("invalid zip")));
 
     }
 }
