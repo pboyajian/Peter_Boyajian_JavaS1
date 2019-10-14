@@ -36,7 +36,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Question'
+              $ref: '#/components/schemas/Answer'
       responses:
         '201':
           description: the question and it's answer
@@ -67,16 +67,12 @@ components:
       required:
         - word
         - definition
-    Question:
-      properties:
-        question:
-          type: string
-      required:
-        - question
     Answer:
       properties:
         question:
-          $ref: '#/components/schemas/Question'
+          type: string
         answer:
           type: string
+      required: 
+        - question
         

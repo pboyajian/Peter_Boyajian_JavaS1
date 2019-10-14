@@ -1,7 +1,7 @@
 package com.trilogyed.U1M4SummativeBoyajianPeter.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.trilogyed.U1M4SummativeBoyajianPeter.models.Question;
+import com.trilogyed.U1M4SummativeBoyajianPeter.models.Answer;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +12,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -52,7 +51,7 @@ public class U1M4SummativeBoyajianPeterControllerTest {
 
     @Test
     public void shouldGetRandomAnswer() throws Exception{
-        String inputJson =mapper.writeValueAsString(new Question("question"));
+        String inputJson =mapper.writeValueAsString(new Answer("question"));
         mockMvc.perform(
                 post("/magic")
                 .content(inputJson)
@@ -66,7 +65,7 @@ public class U1M4SummativeBoyajianPeterControllerTest {
 
     @Test
     public void shouldHandle422WhenWeEnterBlankQuestion() throws Exception {
-        String inputJson =mapper.writeValueAsString(new Question(""));
+        String inputJson =mapper.writeValueAsString(new Answer(""));
         // act
         mockMvc.perform(
                 post("/magic")
