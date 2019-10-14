@@ -1,0 +1,82 @@
+openapi: 3.0.0
+info:
+  title: U1M4SummativeBoyajianPeter
+  description: >-
+     This web service is a quote-of-the-day, word-of-the-day, and magic 8-ball service.
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080
+    description: Local dev server
+paths:
+  /quote:
+    get:
+      summary: Serves up a random quote.
+      responses:
+        '201':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote'
+  /word:
+    get:
+      summary: Serves up a random word and its definition
+      responses:
+        '201':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Definition'
+  /magic:
+    post:
+      summary: Get a magic 8 ball answer to a given question.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Question'
+      responses:
+        '201':
+          description: the question and it's answer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Answer'
+        '422':
+          description: missing question
+          
+components:
+  schemas:
+    Quote:
+      properties:
+        author:
+          type: string
+        quote:
+          type: string
+      required:
+        - author
+        - quote
+    Definition:
+      properties:
+        word:
+          type: string
+        definition:
+          type: string
+      required:
+        - word
+        - definition
+    Question:
+      properties:
+        question:
+          type: string
+      required:
+        - question
+    Answer:
+      properties:
+        question:
+          $ref: '#/components/schemas/Question'
+        answer:
+          type: string
+        
