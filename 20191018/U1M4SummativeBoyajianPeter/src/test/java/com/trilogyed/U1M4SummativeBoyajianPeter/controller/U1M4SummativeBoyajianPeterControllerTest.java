@@ -51,7 +51,8 @@ public class U1M4SummativeBoyajianPeterControllerTest {
 
     @Test
     public void shouldGetRandomAnswer() throws Exception{
-        String inputJson =mapper.writeValueAsString(new Answer("question"));
+        String question="test question?";
+        String inputJson =mapper.writeValueAsString(new Answer(question));
         mockMvc.perform(
                 post("/magic")
                 .content(inputJson)
@@ -60,6 +61,7 @@ public class U1M4SummativeBoyajianPeterControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("{"+'"'+"question"+'"'+":")))
+                .andExpect(content().string(containsString(question)))
                 .andExpect(content().string(containsString(","+'"'+"answer"+'"'+":")));
     }
 
