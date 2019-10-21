@@ -1,12 +1,13 @@
 package com.trilogyed.PeterBoyajianU1M5Summative.model;
 
-import java.util.Date;
+import java.time.LocalDate;
+//import java.util.Date;
 import java.util.Objects;
 
 public class Book {
     private int book_id;
     private String isbn;
-    private Date publish_date;
+    private LocalDate publish_date;
     private int author_id;
     private String title;
     private int publisher_id;
@@ -25,26 +26,6 @@ public class Book {
                 '}';
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Book book = (Book) o;
-//        return book_id == book.book_id &&
-//                author_id == book.author_id &&
-//                publisher_id == book.publisher_id &&
-//                Double.compare(book.price, price) == 0 &&
-//                Objects.equals(isbn, book.isbn) &&
-//                Objects.equals(publish_date, book.publish_date) &&
-//                Objects.equals(title, book.title);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(book_id, isbn, publish_date, author_id, title, publisher_id, price);
-//    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -55,12 +36,13 @@ public class Book {
                 publisher_id == book.publisher_id &&
                 Double.compare(book.price, price) == 0 &&
                 Objects.equals(isbn, book.isbn) &&
+                Objects.equals(publish_date, book.publish_date) &&
                 Objects.equals(title, book.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(book_id, isbn, author_id, title, publisher_id, price);
+        return Objects.hash(book_id, isbn, publish_date, author_id, title, publisher_id, price);
     }
 
     public int getBook_id() {
@@ -79,11 +61,11 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public Date getPublish_date() {
+    public LocalDate getPublish_date() {
         return publish_date;
     }
 
-    public void setPublish_date(Date publish_date) {
+    public void setPublish_date(LocalDate publish_date) {
         this.publish_date = publish_date;
     }
 
@@ -119,7 +101,7 @@ public class Book {
         this.price = price;
     }
 
-    public Book(int book_id, String isbn, Date publish_date, int author_id, String title, int publisher_id, double price) {
+    public Book(int book_id, String isbn, LocalDate publish_date, int author_id, String title, int publisher_id, double price) {
         this.book_id = book_id;
         this.isbn = isbn;
         this.publish_date = publish_date;

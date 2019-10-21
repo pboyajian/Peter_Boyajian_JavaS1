@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+//import java.time.LocalDate;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,10 +41,9 @@ public class BookDaoTest {
 
         book=new Book();
         book.setIsbn("ISBN");
-        book.setPublish_date(new Date());
+        book.setPublish_date(LocalDate.of(2019,1,1));
         book.setTitle("title");
         book.setPrice(3.14);
-
         authors=authorDao.getAllAuthors();
         authors.forEach(a->authorDao.deleteAuthor(a.getAuthor_id()));
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -30,7 +31,7 @@ public class BookDaoJdbcTemplateImpl implements BookDao {
         Book book = new Book();
         book.setBook_id(Integer.parseInt(rs.getString("book_id")));
         book.setIsbn(rs.getString("isbn"));
-        book.setPublish_date(rs.getDate("publish_date"));
+        book.setPublish_date(LocalDate.parse(rs.getString("publish_date")));
         book.setAuthor_id(Integer.parseInt(rs.getString("author_id")));
         book.setTitle(rs.getString("title"));
         book.setPublisher_id(Integer.parseInt(rs.getString("publisher_id")));
