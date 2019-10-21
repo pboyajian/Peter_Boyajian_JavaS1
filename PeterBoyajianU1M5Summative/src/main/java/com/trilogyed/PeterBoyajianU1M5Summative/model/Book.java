@@ -1,5 +1,6 @@
 package com.trilogyed.PeterBoyajianU1M5Summative.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 //import java.util.Date;
 import java.util.Objects;
@@ -11,7 +12,7 @@ public class Book {
     private int author_id;
     private String title;
     private int publisher_id;
-    private double price;
+    private BigDecimal price;
 
     @Override
     public String toString() {
@@ -34,10 +35,10 @@ public class Book {
         return book_id == book.book_id &&
                 author_id == book.author_id &&
                 publisher_id == book.publisher_id &&
-                Double.compare(book.price, price) == 0 &&
                 Objects.equals(isbn, book.isbn) &&
                 Objects.equals(publish_date, book.publish_date) &&
-                Objects.equals(title, book.title);
+                Objects.equals(title, book.title) &&
+                Objects.equals(price, book.price);
     }
 
     @Override
@@ -93,15 +94,15 @@ public class Book {
         this.publisher_id = publisher_id;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public Book(int book_id, String isbn, LocalDate publish_date, int author_id, String title, int publisher_id, double price) {
+    public Book(int book_id, String isbn, LocalDate publish_date, int author_id, String title, int publisher_id, BigDecimal price) {
         this.book_id = book_id;
         this.isbn = isbn;
         this.publish_date = publish_date;

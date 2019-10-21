@@ -7,6 +7,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -35,7 +36,7 @@ public class BookDaoJdbcTemplateImpl implements BookDao {
         book.setAuthor_id(Integer.parseInt(rs.getString("author_id")));
         book.setTitle(rs.getString("title"));
         book.setPublisher_id(Integer.parseInt(rs.getString("publisher_id")));
-        book.setPrice(Double.parseDouble(rs.getString("price")));
+        book.setPrice(BigDecimal.valueOf(Double.parseDouble(rs.getString("price"))));
         return book;
     }
     @Override
