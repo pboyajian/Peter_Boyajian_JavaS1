@@ -1,13 +1,13 @@
-package com.trilogyed.U1M6GroupProject;
+package com.trilogyed.PeterBoyajianU1Capstone;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class U1M6GroupProjectApplication {
+public class PeterBoyajianU1CapstoneApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(U1M6GroupProjectApplication.class, args);
+		SpringApplication.run(PeterBoyajianU1CapstoneApplication.class, args);
 	}
 
 }

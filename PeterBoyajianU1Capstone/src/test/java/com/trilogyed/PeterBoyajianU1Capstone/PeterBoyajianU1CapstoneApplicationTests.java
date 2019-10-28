@@ -1,10 +1,10 @@
-package com.trilogyed.U1M6GroupProject;
+package com.trilogyed.PeterBoyajianU1Capstone;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class U1M6GroupProjectApplicationTests {
+class PeterBoyajianU1CapstoneApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -1,0 +1,425 @@
+openapi: 3.0.0
+info:
+  title: 'U1 Capstone Project: Video Game Store'
+  description: A SQL-database-backed REST inventory management system for a video game store
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080
+    description: Local dev server
+paths:
+  /games:
+    get:
+      summary: return game list
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemList'
+    post:
+      summary: create game
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Game'
+      responses:
+        '201':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+    put:
+      summary: update game
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Game'
+      responses:
+        '200':
+          description: Successful         
+  /game/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      description: game id
+      schema:
+        type: integer
+        format: int64
+    get:
+      summary: return game 
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+    delete:
+      summary: delete game
+      responses:
+        '204':
+          description: Successful
+  /game/studio/{studio}:
+    parameters:
+    - name: studio
+      in: path
+      required: true
+      description: studio
+      schema:
+        type: string
+    get:
+      summary: return Games for a studio 
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemList'
+  /game/rating/{rating}:
+    parameters:
+    - name: rating
+      in: path
+      required: true
+      description: ESRB Rating
+      schema:
+        type: string
+    get:
+      summary: return Games for a ESRB Rating 
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemList'
+  /game/title/{title}:
+    parameters:
+    - name: title
+      in: path
+      required: true
+      description: title
+      schema:
+        type: string
+    get:
+      summary: return Games for a title
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemList'
+  /consoles:
+    get:
+      summary: return console list
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemList'
+    post:
+      summary: create console
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Console'
+      responses:
+        '201':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Console'
+    put:
+      summary: update console
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Console'
+      responses:
+        '200':
+          description: Successful         
+  /console/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      description: console id
+      schema:
+        type: integer
+        format: int64
+    get:
+      summary: return console 
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Console'
+    delete:
+      summary: delete console
+      responses:
+        '204':
+          description: Successful
+  /console/manufacturer/{manufacturer}:
+    parameters:
+    - name: manufacturer
+      in: path
+      required: true
+      description: manufacturer
+      schema:
+        type: string
+    get:
+      summary: return Consoles for a manufacturer
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemList'
+  /tshirts:
+    get:
+      summary: return tshirt list
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemList'
+    post:
+      summary: create tshirt
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TShirt'
+      responses:
+        '201':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TShirt'
+    put:
+      summary: update tshirt
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TShirt'
+      responses:
+        '200':
+          description: Successful         
+  /tshirt/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      description: tshirt id
+      schema:
+        type: integer
+        format: int64
+    get:
+      summary: return tshirt 
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TShirt'
+    delete:
+      summary: delete tshirt
+      responses:
+        '204':
+          description: Successful
+  /tshirt/color/{color}:
+    parameters:
+    - name: color
+      in: path
+      required: true
+      description: color
+      schema:
+        type: string
+    get:
+      summary: return TShirts by color
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemList'
+  /tshirt/size/{size}:
+    parameters:
+    - name: size
+      in: path
+      required: true
+      description: size
+      schema:
+        type: string
+    get:
+      summary: return TShirts by size
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemList'
+  /purchase:
+    post:
+      summary: create invoice
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceViewModel'
+      responses:
+        '201':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceViewModel'     
+components:
+  schemas:
+    Game:
+      properties:
+        gameId:
+          type: integer
+        title:
+          type: string
+        esrbRating:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        studio:
+          type: string
+        quantity:
+          type: integer
+      required:
+        - gameId
+        - title
+        - esrbRating
+        - description
+        - price
+        - studio
+    Console:
+      properties:
+        consoleId:
+          type: integer
+        model:
+          type: string
+        manufacturer:
+          type: string
+        memoryAmount:
+          type: string
+        processor:
+          type: string
+        price:
+          type: string
+        quantity:
+          type: integer          
+      required:
+        - consoleId
+        - model
+        - manufacturer
+        - price
+        - quantity
+    TShirt:
+      properties:
+        tShirtId:
+          type: integer
+        size:
+          type: string
+        color:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        quantity:
+          type: integer
+      required: 
+        - tShirtId
+        - size
+        - color
+        - description
+        - price
+        - quantity
+    Item:
+      properties:
+        ItemId:
+          type: integer
+        price:
+          type: number
+      required: 
+        - id
+        - price
+    InvoiceViewModel:
+      properties:
+        invoiceId:
+          type: integer
+        name:
+          type: string
+        street:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zipcode:
+          type: string
+        itemType:
+          type: object
+          items:
+            $ref: '#/components/schemas/Item'
+        itemId:
+          type: integer
+        unitPrice:
+          type: number
+        quantity:
+          type: integer
+        subtotal:
+          type: number
+        tax:
+          type: number
+        processingFee:
+          type: number
+        total:
+          type: number
+      required: 
+        - name
+        - street
+        - city
+        - state
+        - zipcode
+        - itemType
+        - itemId
+    ItemList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Item'
