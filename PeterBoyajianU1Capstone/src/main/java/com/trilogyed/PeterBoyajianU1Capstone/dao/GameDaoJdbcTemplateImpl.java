@@ -83,7 +83,6 @@ public class GameDaoJdbcTemplateImpl implements GameDao {
         int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
         game.setId(id);
         return game;
-
     }
 
     @Override

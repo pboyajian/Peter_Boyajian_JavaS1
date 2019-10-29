@@ -5,7 +5,7 @@ import com.trilogyed.PeterBoyajianU1Capstone.model.ProcessingFee;
 import java.util.List;
 
 public interface ProcessingFeeDao {
-    ProcessingFee getProcessingFee(int id );
+    ProcessingFee getProcessingFee(String productType );
 //    List<ProcessingFee> getAllProcessingFees();
 //    void deleteProcessingFee(int id);
 //    void updateProcessingFee(ProcessingFee processingFee);
