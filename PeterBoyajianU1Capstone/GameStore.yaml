@@ -340,7 +340,7 @@ components:
         processor:
           type: string
         price:
-          type: string
+          type: number
         quantity:
           type: integer          
       required:
