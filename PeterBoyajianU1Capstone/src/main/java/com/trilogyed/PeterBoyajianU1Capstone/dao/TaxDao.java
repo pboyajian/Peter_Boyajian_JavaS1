@@ -5,7 +5,7 @@ import com.trilogyed.PeterBoyajianU1Capstone.model.Tax;
 import java.util.List;
 
 public interface TaxDao {
-    Tax getTax(int id);
+    Tax getTax(String state);
 //    List<Tax> getAllTaxes();
 //    void deleteTax(int id);
 //    void updateTax(Tax tax);

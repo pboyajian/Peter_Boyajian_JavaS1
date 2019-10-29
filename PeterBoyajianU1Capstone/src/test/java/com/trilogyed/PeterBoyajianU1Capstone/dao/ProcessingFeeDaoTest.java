@@ -16,10 +16,6 @@ import static org.junit.Assert.*;
 public class ProcessingFeeDaoTest {
 @Autowired
 private ProcessingFeeDaoJdbcTemplateImpl processingFeeDaoJdbcTemplate;
-    @Before
-    public void setUp() throws Exception {
-    }
-
 //    @Test
 //    public void shouldDeleteById(){
 //        ProcessingFee processingFeeAfterAdding=processingFeeDao.addProcessingFee(processingFee);
@@ -36,7 +32,7 @@ private ProcessingFeeDaoJdbcTemplateImpl processingFeeDaoJdbcTemplate;
 //    }
 
     @Test
-    public void shouldGetOneById(){
+    public void shouldGetOneByProductType(){
         ProcessingFee processingFee;
         processingFee=new ProcessingFee();
         processingFee.setFee(BigDecimal.valueOf(1.49));

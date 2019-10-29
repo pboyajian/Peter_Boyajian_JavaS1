@@ -15,7 +15,7 @@ import java.util.List;
 public class ProcessingFeeDaoJdbcTemplateImpl implements ProcessingFeeDao {   
 //    private static final String SELECT_ALL_PROCESSINGFEES_SQL="select * from processing_fee";
 //    private static final String DELETE_PROCESSINGFEE_SQL="delete from processing_fee where processing_fee_id=?";
-    private static final String SELECT_PROCESSINGFEE_BY_ID_SQL="select * from processing_fee where product_type=?";
+    private static final String SELECT_PROCESSINGFEE_BY_PRODUCTTYPE_SQL="select * from processing_fee where product_type=?";
     @Autowired
     private JdbcTemplate jdbcTemplate;
     public ProcessingFeeDaoJdbcTemplateImpl(JdbcTemplate jdbcTemplate){this.jdbcTemplate=jdbcTemplate;}
@@ -28,7 +28,7 @@ public class ProcessingFeeDaoJdbcTemplateImpl implements ProcessingFeeDao {
     @Override
     public ProcessingFee getProcessingFee(String productType) {
         try{
-            return jdbcTemplate.queryForObject(SELECT_PROCESSINGFEE_BY_ID_SQL,this::mapRowToProcessingFee,productType);
+            return jdbcTemplate.queryForObject(SELECT_PROCESSINGFEE_BY_PRODUCTTYPE_SQL,this::mapRowToProcessingFee,productType);
         }catch(EmptyResultDataAccessException erdae){
             System.out.println("error: "+erdae.getMessage());
             return null;
