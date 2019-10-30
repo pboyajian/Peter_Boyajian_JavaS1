@@ -170,13 +170,42 @@ public void shouldGetTShirtByColorAndSize(){
     tShirt.setId(1);
     List<TShirt> tShirts=new ArrayList<>();
     tShirts.add(tShirt);
-    assertEquals(tShirts,serviceLayer.getAllTShirtsByColor("ugly"));
     assertEquals(tShirts,serviceLayer.getAllTShirtsBySize("xxxxxxxxxxxxxxxxl"));
+    assertEquals(tShirts,serviceLayer.getAllTShirtsByColor("red"));
 }
 @Test
-public void shouldCalculateTaxOnCostOfItem(){}
+public void shouldCalculateTaxOnCostOfItem(){
+    InvoiceViewModel ivm = new InvoiceViewModel();
+    ivm.setCity("city");
+    ivm.setName("name");
+    ivm.setState("st");
+    ivm.setStreet("street");
+    ivm.setQuantity(7);
+    ivm.setProcessingFee(BigDecimal.valueOf(8.01));
+    ivm.setSubtotal(BigDecimal.valueOf(8.01));
+    ivm.setTotal(BigDecimal.valueOf(8.01));
+    ivm.setTax(BigDecimal.valueOf(8.01));
+    ivm.setZipcode("66666");
+    ivm.setUnitPrice(BigDecimal.valueOf(8.01));
+
+    Console console=new Console();
+    console.setPrice(BigDecimal.valueOf(7.77));
+    console.setQuantity(6);
+    console.setProcessor("i7");
+    console.setModel("model 1");
+    console.setMemoryAmount("500 GB");
+    console.setManufacturer("Sony");
+    console.setId(1);
+    ivm.setItem(console);
+    ivm=serviceLayer.saveInvoice(ivm);
+
+}
 @Test
 public void shouldOnlyApplyProcessingFeeOncePerOrder(){}
+@Test
+public void shouldCalculateTotal(){}
+@Test
+public void shouldCalculateSubTotal(){}
 //-------------------------------------------Mocks----------------------------------------------------
 private void setUpProcessingFeeDaoMock() {
     processingFeeDao=mock(ProcessingFeeDao.class);
