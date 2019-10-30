@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -25,7 +27,8 @@ public class GameDaoJdbcTemplateImpl implements GameDao {
     private static final String INSERT_GAME_SQL="insert into game (price,description,studio,title,esrb_rating,quantity) values (?,?,?,?,?,?)";
     private static final String SELECT_ALL_GAMES_BY_STUDIO_SQL="select * from game where studio=?";
     private static final String SELECT_ALL_GAMES_BY_RATING_SQL="select * from game where esrb_rating=?";
-    private static final String SELECT_ALL_GAMES_BY_TITLE_SQL="select * from game where title=?";
+    private static String SELECT_ALL_GAMES_BY_TITLE_SQL="select * from game where title like ?";
+
     private JdbcTemplate jdbcTemplate;
     public GameDaoJdbcTemplateImpl(JdbcTemplate jdbcTemplate){this.jdbcTemplate=jdbcTemplate;}
     @Override
@@ -96,7 +99,7 @@ public class GameDaoJdbcTemplateImpl implements GameDao {
     }
 
     @Override
-    public List<Game> getAllGamesByTitle(String title) {
-        return jdbcTemplate.query(SELECT_ALL_GAMES_BY_TITLE_SQL,this::mapRowToGame,title);
+    public List<Game> getAllGamesByTitle(String title){
+        return jdbcTemplate.query(SELECT_ALL_GAMES_BY_TITLE_SQL,this::mapRowToGame,"%"+title+"%");
     }
 }

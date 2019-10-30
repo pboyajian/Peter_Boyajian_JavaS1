@@ -81,7 +81,7 @@ private Game game;
     public void shouldGetAllByTitle(){
         gameDao.addGame(game);
         gameDao.addGame(game);
-        assertEquals(2,gameDao.getAllGamesByTitle("gameName").size());
+        assertEquals(2,gameDao.getAllGamesByTitle("game").size());
         assertEquals(0,gameDao.getAllGamesByTitle("lameName").size());
     }
     @Test
