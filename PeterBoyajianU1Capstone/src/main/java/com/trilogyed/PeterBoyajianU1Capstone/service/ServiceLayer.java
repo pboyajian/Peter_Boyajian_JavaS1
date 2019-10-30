@@ -2,6 +2,7 @@ package com.trilogyed.PeterBoyajianU1Capstone.service;
 
 import com.trilogyed.PeterBoyajianU1Capstone.dao.*;
 import com.trilogyed.PeterBoyajianU1Capstone.model.*;
+import com.trilogyed.PeterBoyajianU1Capstone.viewmodel.InvoiceViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +16,8 @@ public class ServiceLayer {
     private InvoiceDao invoiceDao;
     private TaxDao taxDao;
     private ProcessingFeeDao processingFeeDao;
-@Autowired
+
+    @Autowired
     public ServiceLayer(GameDao gameDao, ConsoleDao consoleDao, TShirtDao tShirtDao, InvoiceDao invoiceDao, TaxDao taxDao, ProcessingFeeDao processingFeeDao) {
         this.gameDao = gameDao;
         this.consoleDao = consoleDao;
@@ -27,53 +29,64 @@ public class ServiceLayer {
 
 
     public Game addGame(Game game) {
+        return gameDao.addGame(game);
     }
-
     public Game getGame(int i) {
+        return gameDao.getGame(i);
     }
-
     public List<Game> getAllGames() {
+        return gameDao.getAllGames();
     }
-
     public Console addConsole(Console console) {
+        return consoleDao.addConsole(console);
     }
-
     public Console getConsole(int i) {
+        return consoleDao.getConsole(i);
     }
-
     public List<Console> getAllConsoles() {
+        return consoleDao.getAllConsoles();
     }
-
     public TShirt addTShirt(TShirt tShirt) {
+        return tShirtDao.addTShirt(tShirt);
     }
-
     public TShirt getTShirt(int i) {
+        return tShirtDao.getTShirt(i);
     }
-
     public List<TShirt> getAllTShirts() {
+        return tShirtDao.getAllTShirts();
+    }
+    public Tax getTax(String state) {
+        return taxDao.getTax(state);
+    }
+    public ProcessingFee getProcessingFee(String procFee) {
+        return processingFeeDao.getProcessingFee(procFee);
+    }
+    public List<Game> getAllGamesByStudio(String studio) {
+        return gameDao.getAllGamesByStudio(studio);
+    }
+    public List<Game> getAllGamesByTitle(String title) {
+        return gameDao.getAllGamesByTitle(title);
+    }
+    public List<Game> getAllGamesByRating(String rating) {
+        return gameDao.getAllGamesByStudio(rating);
+    }
+    public List<Console> getAllConsolesByManufacturer(String manu) {
+        return consoleDao.getAllConsolesByManufacturer(manu);
+    }
+    public List<TShirt> getAllTShirtsByColor(String color) {
+        return tShirtDao.getAllTShirtsByColor(color);
+    }
+    public List<TShirt> getAllTShirtsBySize(String size) {
+        return tShirtDao.getAllTShirtsBySize(size);
     }
 
-    public Tax getTax(String ny) {
+    public InvoiceViewModel findInvoice(int invoiceId) {
+        return null;
     }
-
-    public ProcessingFee getProcessingFee(String games) {
+    public InvoiceViewModel saveInvoice(InvoiceViewModel ivm) {
+        return null;
     }
-
-    public List<Game> getAllGamesByStudio(String s) {
-    }
-
-    public List<Game> getAllGamesByTitle(String game) {
-    }
-
-    public List<Game> getAllGamesByRating(String bad) {
-    }
-
-    public List<Console> getAllConsolesByManufacturer(String sony) {
-    }
-
-    public List<TShirt> getAllTShirtsByColor(String ugly) {
-    }
-
-    public List<TShirt> getAllTShirtsBySize(String xxxxxxxxxxxxxxxxl) {
+    public List<InvoiceViewModel> getAllInvoices() {
+        return null;
     }
 }

@@ -2,6 +2,7 @@ package com.trilogyed.PeterBoyajianU1Capstone.service;
 
 import com.trilogyed.PeterBoyajianU1Capstone.dao.*;
 import com.trilogyed.PeterBoyajianU1Capstone.model.*;
+import com.trilogyed.PeterBoyajianU1Capstone.viewmodel.InvoiceViewModel;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -83,7 +84,37 @@ public void shouldGetGetAllAndPostTShirt(){
     assertEquals(tShirts,serviceLayer.getAllTShirts());
 }
 @Test
-public void shouldGetGetAllAndPostInvoice(){}
+public void shouldGetGetAllAndPostInvoice(){
+    InvoiceViewModel ivm = new InvoiceViewModel();
+    ivm.setCity("city");
+    ivm.setName("name");
+    ivm.setState("st");
+    ivm.setStreet("street");
+    ivm.setQuantity(7);
+    ivm.setProcessingFee(BigDecimal.valueOf(8.01));
+    ivm.setSubtotal(BigDecimal.valueOf(8.01));
+    ivm.setTotal(BigDecimal.valueOf(8.01));
+    ivm.setTax(BigDecimal.valueOf(8.01));
+    ivm.setZipcode("66666");
+    ivm.setUnitPrice(BigDecimal.valueOf(8.01));
+
+    Console console=new Console();
+    console.setPrice(BigDecimal.valueOf(7.77));
+    console.setQuantity(6);
+    console.setProcessor("i7");
+    console.setModel("model 1");
+    console.setMemoryAmount("500 GB");
+    console.setManufacturer("Sony");
+    console.setId(1);
+    ivm.setItem(console);
+    ivm=serviceLayer.saveInvoice(ivm);
+    InvoiceViewModel returnedIvm=serviceLayer.findInvoice(ivm.getInvoiceId());
+    assertEquals(ivm,returnedIvm);
+    List<InvoiceViewModel> invoiceViewModels=new ArrayList<>();
+    invoiceViewModels.add(ivm);
+    assertEquals(invoiceViewModels,serviceLayer.getAllInvoices());
+
+}
 @Test
 public void shouldGetTax(){
     Tax tax=new Tax();
