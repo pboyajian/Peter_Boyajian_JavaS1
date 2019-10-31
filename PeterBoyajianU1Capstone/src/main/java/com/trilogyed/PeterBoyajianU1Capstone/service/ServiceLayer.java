@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -81,10 +82,11 @@ public class ServiceLayer {
         return tShirtDao.getAllTShirtsBySize(size);
     }
 
-    public InvoiceViewModel findInvoice(int invoiceId) {
-        return null;
+    public InvoiceViewModel findInvoiceViewModel(int invoiceId) {
+
+        return buildInvoiceViewModel(invoiceDao.getInvoice(invoiceId));
     }
-    public InvoiceViewModel saveInvoice(InvoiceViewModel ivm) {
+    public InvoiceViewModel saveInvoiceViewModel(InvoiceViewModel ivm) {
         Invoice invoice=new Invoice();
         invoice.setUnitPrice(ivm.getUnitPrice());
         invoice.setZipcode(ivm.getZipcode());
@@ -97,14 +99,35 @@ public class ServiceLayer {
         invoice.setProcessingFee(ivm.getProcessingFee());
         invoice.setQuantity(ivm.getQuantity());
         invoice.setName(ivm.getName());
-        invoice.setItemType(ivm.getItem().getClass().toString());
+        invoice.setItemType(getItemTypeFromInvoiceViewModel(ivm));
         invoice.setItemId(ivm.getItem().getId());
         invoice=invoiceDao.addInvoice(invoice);
         ivm.setInvoiceId(invoice.getInvoiceId());
         return ivm;
     }
-    public List<InvoiceViewModel> getAllInvoices() {
-        return null;
+
+    String getItemTypeFromInvoiceViewModel(InvoiceViewModel ivm) {
+        String str=ivm.getItem().getClass().toString();//looks like blah.blah.blah.ClassName
+        //we want to take everything after the last '.' in the input string.
+        int lastOccurOfDot=0;
+        int len=str.length();
+        for (int i = len-1; i >=0 ; i--) {
+            char c=str.charAt(i);
+            if (c=='.') {
+                lastOccurOfDot=i;
+            break;}
+        }
+        return str.substring(lastOccurOfDot+1,len);
+    }
+
+    public List<InvoiceViewModel> getAllInvoiceViewModels() {
+        List<Invoice> invoices = invoiceDao.getAllInvoices();
+
+        List<InvoiceViewModel> ivmList = new ArrayList<>();
+
+        invoices.forEach(invoice -> ivmList.add(buildInvoiceViewModel(invoice)));
+
+        return ivmList;
     }
     private InvoiceViewModel buildInvoiceViewModel(Invoice invoice) {
         InvoiceViewModel ivm = new InvoiceViewModel();
@@ -134,26 +157,38 @@ public class ServiceLayer {
         return ivm;
     }
 
-    private BigDecimal getProcessingFeeFromInvoice(InvoiceViewModel ivm) {
+    BigDecimal getProcessingFeeFromInvoice(InvoiceViewModel ivm) {
        BigDecimal retVal;
-        retVal=ivm.getUnitPrice().multiply(BigDecimal.valueOf(ivm.getQuantity()));
+       Invoice invoice =invoiceDao.getInvoice(ivm.getInvoiceId());
+       String itemType=invoice.getItemType();
+        int itemId=invoice.getItemId();
+        if (itemType.equalsIgnoreCase("game")){
+            retVal=getProcessingFee("Games").getFee();
+        }
+        else if (itemType.equalsIgnoreCase("console")){
+            retVal=getProcessingFee("Consoles").getFee();   }
+        else {
+            retVal=getProcessingFee("T-Shirts").getFee();}
         if (ivm.getQuantity()>10){
             retVal=retVal.add(BigDecimal.valueOf(15.49));
         }
         return retVal;
     }
 
-    private BigDecimal getTaxFromInvoice(InvoiceViewModel ivm) {
-        return BigDecimal.valueOf(ivm.getQuantity()).multiply(getTax(ivm.getState()).getRate());
+    BigDecimal getTaxFromInvoice(InvoiceViewModel ivm) {
+        return BigDecimal.valueOf(ivm.getQuantity())
+                .multiply(getTax(ivm.getState())
+                        .getRate())
+                .multiply(ivm.getUnitPrice());
     }
 
-    private BigDecimal getTotalFromInvoice(InvoiceViewModel ivm) {
+    BigDecimal getTotalFromInvoice(InvoiceViewModel ivm) {
         return ivm.getSubtotal()
                 .add(ivm.getTax())
                 .add(ivm.getProcessingFee());
     }
 
-    private BigDecimal getSubTotal(InvoiceViewModel invoice) {
+    BigDecimal getSubTotal(InvoiceViewModel invoice) {
         return invoice.getUnitPrice().multiply(BigDecimal.valueOf(invoice.getQuantity()));
     }
 }

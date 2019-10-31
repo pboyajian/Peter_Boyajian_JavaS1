@@ -21,6 +21,25 @@ public class InvoiceViewModel {
     private BigDecimal total;
 
     @Override
+    public String toString() {
+        return "InvoiceViewModel{" +
+                "invoiceId=" + invoiceId +
+                ", name='" + name + '\'' +
+                ", street='" + street + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zipcode='" + zipcode + '\'' +
+                ", item=" + item +
+                ", unitPrice=" + unitPrice +
+                ", quantity=" + quantity +
+                ", subtotal=" + subtotal +
+                ", tax=" + tax +
+                ", processingFee=" + processingFee +
+                ", total=" + total +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

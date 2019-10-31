@@ -88,15 +88,15 @@ public void shouldGetGetAllAndPostInvoice(){
     InvoiceViewModel ivm = new InvoiceViewModel();
     ivm.setCity("city");
     ivm.setName("name");
-    ivm.setState("st");
+    ivm.setState("IL");
     ivm.setStreet("street");
     ivm.setQuantity(7);
-    ivm.setProcessingFee(BigDecimal.valueOf(8.01));
-    ivm.setSubtotal(BigDecimal.valueOf(8.01));
-    ivm.setTotal(BigDecimal.valueOf(8.01));
-    ivm.setTax(BigDecimal.valueOf(8.01));
+    ivm.setProcessingFee(BigDecimal.valueOf(14.99));
+    ivm.setSubtotal(BigDecimal.valueOf(54.39));
+    ivm.setTotal(BigDecimal.valueOf(72.0995));
+    ivm.setTax(BigDecimal.valueOf(2.7195));
     ivm.setZipcode("66666");
-    ivm.setUnitPrice(BigDecimal.valueOf(8.01));
+    ivm.setUnitPrice(BigDecimal.valueOf(7.77));
 
     Console console=new Console();
     console.setPrice(BigDecimal.valueOf(7.77));
@@ -107,20 +107,20 @@ public void shouldGetGetAllAndPostInvoice(){
     console.setManufacturer("Sony");
     console.setId(1);
     ivm.setItem(console);
-    ivm=serviceLayer.saveInvoice(ivm);
-    InvoiceViewModel returnedIvm=serviceLayer.findInvoice(ivm.getInvoiceId());
+    ivm=serviceLayer.saveInvoiceViewModel(ivm);
+    InvoiceViewModel returnedIvm=serviceLayer.findInvoiceViewModel(ivm.getInvoiceId());
     assertEquals(ivm,returnedIvm);
     List<InvoiceViewModel> invoiceViewModels=new ArrayList<>();
     invoiceViewModels.add(ivm);
-    assertEquals(invoiceViewModels,serviceLayer.getAllInvoices());
+    assertEquals(invoiceViewModels,serviceLayer.getAllInvoiceViewModels());
 
 }
 @Test
 public void shouldGetTax(){
     Tax tax=new Tax();
-    tax.setRate(BigDecimal.valueOf(0.06));
-    tax.setState("NY");
-    assertEquals(tax,serviceLayer.getTax("NY"));
+    tax.setRate(BigDecimal.valueOf(0.05));
+    tax.setState("IL");
+    assertEquals(tax,serviceLayer.getTax("IL"));
 }
 @Test
 public void shouldGetProcessingFee(){
@@ -175,37 +175,41 @@ public void shouldGetTShirtByColorAndSize(){
 }
 @Test
 public void shouldCalculateTaxOnCostOfItem(){
-    InvoiceViewModel ivm = new InvoiceViewModel();
-    ivm.setCity("city");
-    ivm.setName("name");
-    ivm.setState("st");
-    ivm.setStreet("street");
-    ivm.setQuantity(7);
-    ivm.setProcessingFee(BigDecimal.valueOf(8.01));
-    ivm.setSubtotal(BigDecimal.valueOf(8.01));
-    ivm.setTotal(BigDecimal.valueOf(8.01));
-    ivm.setTax(BigDecimal.valueOf(8.01));
-    ivm.setZipcode("66666");
-    ivm.setUnitPrice(BigDecimal.valueOf(8.01));
-
-    Console console=new Console();
-    console.setPrice(BigDecimal.valueOf(7.77));
-    console.setQuantity(6);
-    console.setProcessor("i7");
-    console.setModel("model 1");
-    console.setMemoryAmount("500 GB");
-    console.setManufacturer("Sony");
-    console.setId(1);
-    ivm.setItem(console);
-    ivm=serviceLayer.saveInvoice(ivm);
+    InvoiceViewModel ivm = serviceLayer.findInvoiceViewModel(1);
+    double illinoisTaxRate=0.05;
+    int quantity=7;
+    double unitPrice=7.77;
+    assertEquals(BigDecimal.valueOf(illinoisTaxRate*quantity*unitPrice),serviceLayer.getTaxFromInvoice(ivm));
 
 }
 @Test
-public void shouldOnlyApplyProcessingFeeOncePerOrder(){}
+public void shouldOnlyApplyProcessingFeeOncePerOrder(){
+        InvoiceViewModel ivm=serviceLayer.findInvoiceViewModel(1);
+        double consoleProcessingFee=14.99;
+        assertEquals(BigDecimal.valueOf(consoleProcessingFee),serviceLayer.getProcessingFeeFromInvoice(ivm));
+}
 @Test
-public void shouldCalculateTotal(){}
+public void shouldCalculateSubTotal(){
+    int quantity=7;
+    double unitPrice=7.77;
+    InvoiceViewModel ivm=serviceLayer.findInvoiceViewModel(1);
+    assertEquals(BigDecimal.valueOf(quantity*unitPrice),serviceLayer.getSubTotal(ivm));
+}
 @Test
-public void shouldCalculateSubTotal(){}
+public void shouldCalculateTotal(){
+    double consoleProcessingFee=14.99;
+    int quantity=7;
+    double unitPrice=7.77;
+    double illinoisTaxRate=0.05;
+    double expectedTotal=consoleProcessingFee+(1+illinoisTaxRate)*(quantity*unitPrice);
+    InvoiceViewModel ivm=serviceLayer.findInvoiceViewModel(1);
+    assertEquals(BigDecimal.valueOf(expectedTotal),serviceLayer.getTotalFromInvoice(ivm));
+}
+@Test
+public void shouldGetItemTypeFromInvoiceViewModel(){
+        InvoiceViewModel ivm=serviceLayer.findInvoiceViewModel(1);
+        assertEquals("Console",serviceLayer.getItemTypeFromInvoiceViewModel(ivm));
+}
 //-------------------------------------------Mocks----------------------------------------------------
 private void setUpProcessingFeeDaoMock() {
     processingFeeDao=mock(ProcessingFeeDao.class);
@@ -213,45 +217,49 @@ private void setUpProcessingFeeDaoMock() {
     processingFee.setFee(BigDecimal.valueOf(1.49));
     processingFee.setProduct_type("Games");
     doReturn(processingFee).when(processingFeeDao).getProcessingFee("Games");
+    ProcessingFee processingFee2=new ProcessingFee();
+    processingFee2.setFee(BigDecimal.valueOf(14.99));
+    processingFee2.setProduct_type("Consoles");
+    doReturn(processingFee2).when(processingFeeDao).getProcessingFee("Consoles");
 }
 private void setUpTaxDaoMock() {
     taxDao=mock(TaxDao.class);
     Tax tax=new Tax();
-    tax.setRate(BigDecimal.valueOf(0.06));
-    tax.setState("NY");
-    doReturn(tax).when(taxDao).getTax("NY");
+    tax.setRate(BigDecimal.valueOf(0.05));
+    tax.setState("IL");
+    doReturn(tax).when(taxDao).getTax("IL");
 }
 private void setUpInvoiceDaoMock() {
     invoiceDao=mock(InvoiceDao.class);
     Invoice invoice=new Invoice();
     invoice.setCity("city");
     invoice.setItemId(1);
-    invoice.setItemType("Game");
+    invoice.setItemType("Console");
     invoice.setName("name");
-    invoice.setState("st");
+    invoice.setState("IL");
     invoice.setStreet("street");
     invoice.setQuantity(7);
-    invoice.setProcessingFee(BigDecimal.valueOf(8.01));
-    invoice.setSubtotal(BigDecimal.valueOf(8.01));
-    invoice.setTotal(BigDecimal.valueOf(8.01));
-    invoice.setTax(BigDecimal.valueOf(8.01));
+    invoice.setProcessingFee(BigDecimal.valueOf(14.99));
+    invoice.setSubtotal(BigDecimal.valueOf(54.39));
+    invoice.setTotal(BigDecimal.valueOf(72.0995));
+    invoice.setTax(BigDecimal.valueOf(2.7195));
     invoice.setZipcode("66666");
-    invoice.setUnitPrice(BigDecimal.valueOf(8.01));
+    invoice.setUnitPrice(BigDecimal.valueOf(7.77));
     invoice.setInvoiceId(1);
     Invoice invoice2=new Invoice();
     invoice2.setCity("city");
     invoice2.setItemId(1);
-    invoice2.setItemType("Game");
+    invoice2.setItemType("Console");
     invoice2.setName("name");
-    invoice2.setState("st");
+    invoice2.setState("IL");
     invoice2.setStreet("street");
     invoice2.setQuantity(7);
-    invoice2.setProcessingFee(BigDecimal.valueOf(8.01));
-    invoice2.setSubtotal(BigDecimal.valueOf(8.01));
-    invoice2.setTotal(BigDecimal.valueOf(8.01));
-    invoice2.setTax(BigDecimal.valueOf(8.01));
+    invoice2.setProcessingFee(BigDecimal.valueOf(14.99));
+    invoice2.setSubtotal(BigDecimal.valueOf(54.39));
+    invoice2.setTotal(BigDecimal.valueOf(72.0995));
+    invoice2.setTax(BigDecimal.valueOf(2.7195));
     invoice2.setZipcode("66666");
-    invoice2.setUnitPrice(BigDecimal.valueOf(8.01));
+    invoice2.setUnitPrice(BigDecimal.valueOf(7.77));
     List<Invoice> invoiceList = new ArrayList<>();
     invoiceList.add(invoice);
     doReturn(invoice).when(invoiceDao).addInvoice(invoice2);

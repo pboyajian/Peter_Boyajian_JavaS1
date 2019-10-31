@@ -11,6 +11,14 @@ public class ProcessingFee {
     }
 
     @Override
+    public String toString() {
+        return "ProcessingFee{" +
+                "product_type='" + product_type + '\'' +
+                ", fee=" + fee +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
