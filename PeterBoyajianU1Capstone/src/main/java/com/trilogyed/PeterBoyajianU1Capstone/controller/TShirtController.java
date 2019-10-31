@@ -3,6 +3,7 @@ package com.trilogyed.PeterBoyajianU1Capstone.controller;
 import com.trilogyed.PeterBoyajianU1Capstone.model.TShirt;
 import com.trilogyed.PeterBoyajianU1Capstone.service.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -14,6 +15,7 @@ public class TShirtController {
     @Autowired
     private ServiceLayer serviceLayer;
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public TShirt createTShirt(@RequestBody @Valid TShirt tShirt){
         return serviceLayer.addTShirt(tShirt);
     }
@@ -22,6 +24,7 @@ public class TShirtController {
         return serviceLayer.getAllTShirts();
     }
     @PutMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public void updateTShirt(@RequestBody @Valid TShirt tShirt){
         serviceLayer.updateTShirt(tShirt);
     }
@@ -30,6 +33,8 @@ public class TShirtController {
         return serviceLayer.getTShirt(id);
     }
     @DeleteMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+
     public void deleteTShirtById(@PathVariable int id){
         serviceLayer.deleteTShirtById(id);
     }

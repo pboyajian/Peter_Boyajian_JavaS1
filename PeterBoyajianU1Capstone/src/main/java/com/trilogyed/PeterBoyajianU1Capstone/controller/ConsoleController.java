@@ -3,6 +3,7 @@ package com.trilogyed.PeterBoyajianU1Capstone.controller;
 import com.trilogyed.PeterBoyajianU1Capstone.model.Console;
 import com.trilogyed.PeterBoyajianU1Capstone.service.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -14,6 +15,7 @@ public class ConsoleController {
     @Autowired
     private ServiceLayer serviceLayer;
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Console createConsole(@RequestBody @Valid Console console){
         return serviceLayer.addConsole(console);
     }
@@ -22,6 +24,7 @@ public class ConsoleController {
         return serviceLayer.getAllConsoles();
     }
     @PutMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public void updateConsole(@RequestBody @Valid Console console){
         serviceLayer.updateConsole(console);
     }
@@ -30,6 +33,7 @@ public class ConsoleController {
         return serviceLayer.getConsole(id);
     }
     @DeleteMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteConsoleById(@PathVariable int id){
         serviceLayer.deleteConsoleById(id);
     }

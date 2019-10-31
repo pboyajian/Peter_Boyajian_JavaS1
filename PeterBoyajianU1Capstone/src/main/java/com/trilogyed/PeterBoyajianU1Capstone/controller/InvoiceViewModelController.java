@@ -1,5 +1,6 @@
 package com.trilogyed.PeterBoyajianU1Capstone.controller;
 
+import com.trilogyed.PeterBoyajianU1Capstone.model.Invoice;
 import com.trilogyed.PeterBoyajianU1Capstone.service.ServiceLayer;
 import com.trilogyed.PeterBoyajianU1Capstone.viewmodel.InvoiceViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,8 @@ public class InvoiceViewModelController {
     @Autowired
     private ServiceLayer serviceLayer;
     @PostMapping
-    public InvoiceViewModel createInvoiceViewModel(@RequestBody @Valid InvoiceViewModel invoiceViewModel){
-        return serviceLayer.saveInvoiceViewModel(invoiceViewModel);
+    public InvoiceViewModel createInvoiceViewModel(@RequestBody @Valid Invoice invoice){
+        return serviceLayer.saveInvoiceViewModel(invoice);
     }
 
 }

@@ -3,6 +3,7 @@ package com.trilogyed.PeterBoyajianU1Capstone.controller;
 import com.trilogyed.PeterBoyajianU1Capstone.model.Game;
 import com.trilogyed.PeterBoyajianU1Capstone.service.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -14,6 +15,7 @@ public class GameController {
     @Autowired
     private ServiceLayer serviceLayer;
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Game createGame(@RequestBody @Valid Game game){
         return serviceLayer.addGame(game);
     }
@@ -22,6 +24,7 @@ public class GameController {
         return serviceLayer.getAllGames();
     }
     @PutMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public void updateGame(@RequestBody @Valid Game game){
         serviceLayer.updateGame(game);
     }
@@ -30,6 +33,7 @@ public class GameController {
         return serviceLayer.getGame(id);
     }
     @DeleteMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteGameById(@PathVariable int id){
         serviceLayer.deleteGameById(id);
     }

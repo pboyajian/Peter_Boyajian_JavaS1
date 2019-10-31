@@ -28,8 +28,6 @@ public class ServiceLayer {
         this.taxDao = taxDao;
         this.processingFeeDao = processingFeeDao;
     }
-
-
     public Game addGame(Game game) {
         return gameDao.addGame(game);
     }
@@ -82,8 +80,9 @@ public class ServiceLayer {
         return tShirtDao.getAllTShirtsBySize(size);
     }
     public InvoiceViewModel findInvoiceViewModel(int invoiceId) {
-
-        return buildInvoiceViewModel(invoiceDao.getInvoice(invoiceId));
+        InvoiceViewModel ivm= buildInvoiceViewModel(invoiceDao.getInvoice(invoiceId));
+        ivm.setInvoiceId(invoiceId);
+        return ivm;
     }
     public InvoiceViewModel saveInvoiceViewModel(InvoiceViewModel ivm) {
         Invoice invoice=new Invoice();
@@ -102,6 +101,12 @@ public class ServiceLayer {
         invoice.setItemId(ivm.getItem().getId());
         invoice=invoiceDao.addInvoice(invoice);
         ivm.setInvoiceId(invoice.getInvoiceId());
+        return ivm;
+    }
+    public InvoiceViewModel saveInvoiceViewModel(Invoice invoice) {
+        //invoice=addInvoice(invoice);//now it has an id
+        InvoiceViewModel ivm=buildInvoiceViewModel(invoice);
+        ivm=saveInvoiceViewModel(ivm);
         return ivm;
     }
     String getItemTypeFromInvoiceViewModel(InvoiceViewModel ivm) {
@@ -128,7 +133,7 @@ public class ServiceLayer {
     }
     private InvoiceViewModel buildInvoiceViewModel(Invoice invoice) {
         InvoiceViewModel ivm = new InvoiceViewModel();
-        ivm.setInvoiceId(invoice.getInvoiceId());
+        //ivm.setInvoiceId(invoice.getInvoiceId());
         ivm.setCity(invoice.getCity());
         ivm.setName(invoice.getName());
         ivm.setState(invoice.getState());
@@ -201,5 +206,8 @@ public class ServiceLayer {
     }
     public void deleteTShirtById(int id) {
         tShirtDao.deleteTShirt(id);
+    }
+    public Invoice addInvoice(Invoice invoice) {
+        return invoiceDao.addInvoice(invoice);
     }
 }
