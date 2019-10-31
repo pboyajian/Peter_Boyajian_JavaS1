@@ -47,7 +47,7 @@ private Invoice invoice;
         invoice.setQuantity(7);
         invoice.setZipcode("66666");
         invoice.setItemType("Console");
-//    }
+    }
 //    @Test
 //    public void shouldCreateInvoiceViewModel() throws Exception {
 //        Invoice invoiceAdded = invoice;
