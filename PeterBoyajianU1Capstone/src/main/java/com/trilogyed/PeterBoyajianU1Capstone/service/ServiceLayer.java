@@ -104,7 +104,6 @@ public class ServiceLayer {
         ivm.setInvoiceId(invoice.getInvoiceId());
         return ivm;
     }
-
     String getItemTypeFromInvoiceViewModel(InvoiceViewModel ivm) {
         String str=ivm.getItem().getClass().toString();//looks like blah.blah.blah.ClassName
         //we want to take everything after the last '.' in the input string.
@@ -118,7 +117,6 @@ public class ServiceLayer {
         }
         return str.substring(lastOccurOfDot+1,len);
     }
-
     public List<InvoiceViewModel> getAllInvoiceViewModels() {
         List<Invoice> invoices = invoiceDao.getAllInvoices();
 
@@ -155,7 +153,6 @@ public class ServiceLayer {
         ivm.setTotal(getTotalFromInvoice(ivm));
         return ivm;
     }
-
     BigDecimal getProcessingFeeFromInvoice(InvoiceViewModel ivm) {
        BigDecimal retVal;
        Invoice invoice =invoiceDao.getInvoice(ivm.getInvoiceId());
@@ -173,37 +170,36 @@ public class ServiceLayer {
         }
         return retVal;
     }
-
     BigDecimal getTaxFromInvoice(InvoiceViewModel ivm) {
         return BigDecimal.valueOf(ivm.getQuantity())
                 .multiply(getTax(ivm.getState())
                         .getRate())
                 .multiply(ivm.getUnitPrice());
     }
-
     BigDecimal getTotalFromInvoice(InvoiceViewModel ivm) {
         return ivm.getSubtotal()
                 .add(ivm.getTax())
                 .add(ivm.getProcessingFee());
     }
-
     BigDecimal getSubTotal(InvoiceViewModel invoice) {
         return invoice.getUnitPrice().multiply(BigDecimal.valueOf(invoice.getQuantity()));
     }
-
     public void updateGame(Game game) {
         gameDao.updateGame(game);
     }
-
     public void deleteGameById(int id) {
         gameDao.deleteGame(id);
     }
-
     public void updateConsole(Console console) {
         consoleDao.updateConsole(console);
     }
-
     public void deleteConsoleById(int id) {
         consoleDao.deleteConsole(id);
+    }
+    public void updateTShirt(TShirt tShirt) {
+        tShirtDao.updateTShirt(tShirt);
+    }
+    public void deleteTShirtById(int id) {
+        tShirtDao.deleteTShirt(id);
     }
 }
