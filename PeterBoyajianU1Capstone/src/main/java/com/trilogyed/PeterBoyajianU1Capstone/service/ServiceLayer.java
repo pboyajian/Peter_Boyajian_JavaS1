@@ -81,7 +81,6 @@ public class ServiceLayer {
     public List<TShirt> getAllTShirtsBySize(String size) {
         return tShirtDao.getAllTShirtsBySize(size);
     }
-
     public InvoiceViewModel findInvoiceViewModel(int invoiceId) {
 
         return buildInvoiceViewModel(invoiceDao.getInvoice(invoiceId));
@@ -190,5 +189,21 @@ public class ServiceLayer {
 
     BigDecimal getSubTotal(InvoiceViewModel invoice) {
         return invoice.getUnitPrice().multiply(BigDecimal.valueOf(invoice.getQuantity()));
+    }
+
+    public void updateGame(Game game) {
+        gameDao.updateGame(game);
+    }
+
+    public void deleteGameById(int id) {
+        gameDao.deleteGame(id);
+    }
+
+    public void updateConsole(Console console) {
+        consoleDao.updateConsole(console);
+    }
+
+    public void deleteConsoleById(int id) {
+        consoleDao.deleteConsole(id);
     }
 }

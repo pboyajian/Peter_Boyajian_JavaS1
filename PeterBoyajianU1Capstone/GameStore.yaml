@@ -7,7 +7,7 @@ servers:
   - url: http://localhost:8080
     description: Local dev server
 paths:
-  /games:
+  /game:
     get:
       summary: return game list
       responses:
@@ -117,7 +117,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ItemList'
-  /consoles:
+  /console:
     get:
       summary: return console list
       responses:
@@ -193,7 +193,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ItemList'
-  /tshirts:
+  /tshirt:
     get:
       summary: return tshirt list
       responses:
