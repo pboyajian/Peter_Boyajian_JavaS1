@@ -184,9 +184,9 @@ public void shouldCalculateTaxOnCostOfItem(){
 }
 @Test
 public void shouldOnlyApplyProcessingFeeOncePerOrder(){
-        InvoiceViewModel ivm=serviceLayer.findInvoiceViewModel(1);
+        //InvoiceViewModel ivm=serviceLayer.findInvoiceViewModel(1);
         double consoleProcessingFee=14.99;
-        assertEquals(BigDecimal.valueOf(consoleProcessingFee),serviceLayer.getProcessingFeeFromInvoice(ivm));
+        assertEquals(BigDecimal.valueOf(consoleProcessingFee),serviceLayer.getProcessingFeeFromInvoice(invoiceDao.getInvoice(1)));
 }
 @Test
 public void shouldCalculateSubTotal(){

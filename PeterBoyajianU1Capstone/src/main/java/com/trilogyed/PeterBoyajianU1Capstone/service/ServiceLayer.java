@@ -126,8 +126,11 @@ public class ServiceLayer {
         List<Invoice> invoices = invoiceDao.getAllInvoices();
 
         List<InvoiceViewModel> ivmList = new ArrayList<>();
-
-        invoices.forEach(invoice -> ivmList.add(buildInvoiceViewModel(invoice)));
+InvoiceViewModel invoiceViewModeltoAdd=new InvoiceViewModel();
+        for(Invoice invoice: invoices) {
+            invoiceViewModeltoAdd=buildInvoiceViewModel(invoice);
+            invoiceViewModeltoAdd.setInvoiceId(invoice.getInvoiceId());
+            ivmList.add(invoiceViewModeltoAdd);}
 
         return ivmList;
     }
@@ -153,14 +156,13 @@ public class ServiceLayer {
         ivm.setItem(itemToReturn);
         ivm.setUnitPrice(itemToReturn.getPrice());
         ivm.setSubtotal(getSubTotal(ivm));
-        ivm.setProcessingFee(getProcessingFeeFromInvoice(ivm));
+        ivm.setProcessingFee(getProcessingFeeFromInvoice(invoice));
         ivm.setTax(getTaxFromInvoice(ivm));
         ivm.setTotal(getTotalFromInvoice(ivm));
         return ivm;
     }
-    BigDecimal getProcessingFeeFromInvoice(InvoiceViewModel ivm) {
+    BigDecimal getProcessingFeeFromInvoice(Invoice invoice) {
        BigDecimal retVal;
-       Invoice invoice =invoiceDao.getInvoice(ivm.getInvoiceId());
        String itemType=invoice.getItemType();
         int itemId=invoice.getItemId();
         if (itemType.equalsIgnoreCase("game")){
@@ -170,7 +172,7 @@ public class ServiceLayer {
             retVal=getProcessingFee("Consoles").getFee();   }
         else {
             retVal=getProcessingFee("T-Shirts").getFee();}
-        if (ivm.getQuantity()>10){
+        if (invoice.getQuantity()>10){
             retVal=retVal.add(BigDecimal.valueOf(15.49));
         }
         return retVal;
