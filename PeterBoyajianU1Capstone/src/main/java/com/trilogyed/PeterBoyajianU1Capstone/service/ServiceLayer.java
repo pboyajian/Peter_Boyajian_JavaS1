@@ -126,11 +126,10 @@ public class ServiceLayer {
         List<Invoice> invoices = invoiceDao.getAllInvoices();
 
         List<InvoiceViewModel> ivmList = new ArrayList<>();
-InvoiceViewModel invoiceViewModeltoAdd=new InvoiceViewModel();
-        for(Invoice invoice: invoices) {
-            invoiceViewModeltoAdd=buildInvoiceViewModel(invoice);
-            invoiceViewModeltoAdd.setInvoiceId(invoice.getInvoiceId());
-            ivmList.add(invoiceViewModeltoAdd);}
+        invoices.forEach(invoice -> {
+            InvoiceViewModel invoiceViewModelToAdd=buildInvoiceViewModel(invoice);
+            invoiceViewModelToAdd.setInvoiceId(invoice.getInvoiceId());
+            ivmList.add(invoiceViewModelToAdd);});
 
         return ivmList;
     }
