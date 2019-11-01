@@ -1,11 +1,16 @@
 package com.trilogyed.PeterBoyajianU1Capstone.model;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
 public class Game extends Item {
+    @NotEmpty(message = "Game title cannot be empty.")
     private String title;
+    @NotEmpty(message = "Game rating cannot be empty.")
     private String esrbRating;
+    @NotEmpty(message = "Game description cannot be empty.")
     private String description;
+    @NotEmpty(message = "Game studio cannot be empty.")
     private String studio;
 
     public Game() {

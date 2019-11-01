@@ -19,8 +19,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -114,5 +112,53 @@ class GameControllerTest {
                 .andReturn().getResponse();
 
         assertThat(deleteResponse.getStatus()).isEqualTo(HttpStatus.NO_CONTENT.value());
+    }
+    @Test
+    public void shouldGetAllGamesByGroups() throws Exception {
+        game.setId(1);
+        List<Game> games=new ArrayList<Game>();
+        games.add(game);
+        given(serviceLayer.getAllGamesByRating("bad")).willReturn(games);
+        given(serviceLayer.getAllGamesByStudio("Studio 1")).willReturn(games);
+        given(serviceLayer.getAllGamesByTitle("game")).willReturn(games);
+
+        MockHttpServletResponse response = mockMvc.perform(
+                get("/game/studio/Studio 1")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(response.getContentAsString()).isEqualTo(gameListJacksonTester.write(games).getJson());
+
+         response = mockMvc.perform(
+                get("/game/title/game")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(response.getContentAsString()).isEqualTo(gameListJacksonTester.write(games).getJson());
+         response = mockMvc.perform(
+                get("/game/rating/bad")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(response.getContentAsString()).isEqualTo(gameListJacksonTester.write(games).getJson());
+    }
+    @Test
+    public void shouldReturn422WhenInvalidInput() throws Exception {
+
+        MockHttpServletResponse addEmptyStringResponse = mockMvc.perform(
+                post("/game").contentType(MediaType.APPLICATION_JSON)
+                        .content(gameJacksonTester.write(new Game()).getJson())
+        ).andReturn().getResponse();
+
+        assertThat(addEmptyStringResponse.getStatus()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY.value());
+
+        MockHttpServletResponse addNullResponse = mockMvc.perform(
+                post("/game").contentType(MediaType.APPLICATION_JSON)
+        ).andReturn().getResponse();
+
+        assertThat(addNullResponse.getStatus()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY.value());
     }
 }
