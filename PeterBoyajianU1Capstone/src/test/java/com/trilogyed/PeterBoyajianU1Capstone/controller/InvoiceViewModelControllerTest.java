@@ -1,6 +1,7 @@
 package com.trilogyed.PeterBoyajianU1Capstone.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.trilogyed.PeterBoyajianU1Capstone.model.Console;
 import com.trilogyed.PeterBoyajianU1Capstone.model.Invoice;
 import com.trilogyed.PeterBoyajianU1Capstone.viewmodel.InvoiceViewModel;
 import com.trilogyed.PeterBoyajianU1Capstone.service.ServiceLayer;
@@ -33,13 +34,14 @@ public class InvoiceViewModelControllerTest {
 private MockMvc mockMvc;
 @MockBean
 private ServiceLayer serviceLayer;
-private JacksonTester<InvoiceViewModel> invoiceJacksonTester;
-private JacksonTester<List<InvoiceViewModel>> invoiceListJacksonTester;
+private JacksonTester<Invoice> invoiceJacksonTester;
+private JacksonTester<InvoiceViewModel> invoiceViewModelJacksonTester;
 private Invoice invoice;
 
     @Before
     public void setUp() throws Exception {
         JacksonTester.initFields(this, new ObjectMapper());
+        invoice=new Invoice();
         invoice.setCity("city");
         invoice.setName("name");
         invoice.setState("IL");
@@ -47,21 +49,42 @@ private Invoice invoice;
         invoice.setQuantity(7);
         invoice.setZipcode("66666");
         invoice.setItemType("Console");
+        invoice.setItemId(1);
     }
-//    @Test
-//    public void shouldCreateInvoiceViewModel() throws Exception {
-//        Invoice invoiceAdded = invoice;
-//        invoiceAdded.setInvoiceId(1);
-//
-//        given(serviceLayer.saveInvoiceViewModel(invoice)).willReturn(invoiceAdded);
-//        MockHttpServletResponse createResponse = mockMvc.perform(
-//                post("/purchase")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(invoiceJacksonTester
-//                                .write(invoice)
-//                                .getJson()))
-//                .andReturn().getResponse();
-//        assertThat(createResponse.getStatus()).isEqualTo(HttpStatus.CREATED.value());
-//        assertThat(createResponse.getContentAsString()).isEqualTo(invoiceJacksonTester.write(invoiceAdded).getJson());
-//    }
+    @Test
+    public void shouldCreateInvoiceViewModel() throws Exception {
+        InvoiceViewModel ivm = new InvoiceViewModel();
+        ivm.setCity("city");
+        ivm.setName("name");
+        ivm.setState("IL");
+        ivm.setStreet("street");
+        ivm.setQuantity(7);
+        ivm.setProcessingFee(BigDecimal.valueOf(14.99));
+        ivm.setSubtotal(BigDecimal.valueOf(54.39));
+        ivm.setTotal(BigDecimal.valueOf(72.0995));
+        ivm.setTax(BigDecimal.valueOf(2.7195));
+        ivm.setZipcode("66666");
+        ivm.setUnitPrice(BigDecimal.valueOf(7.77));
+        ivm.setInvoiceId(1);
+        Console console=new Console();
+        console.setPrice(BigDecimal.valueOf(7.77));
+        console.setQuantity(6);
+        console.setProcessor("i7");
+        console.setModel("model 1");
+        console.setMemoryAmount("500 GB");
+        console.setManufacturer("Sony");
+        console.setId(1);
+        ivm.setItem(console);
+
+        given(serviceLayer.saveInvoiceViewModel(invoice)).willReturn(ivm);
+        MockHttpServletResponse createResponse = mockMvc.perform(
+                post("/purchase")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(invoiceJacksonTester
+                                .write(invoice)
+                                .getJson()))
+                .andReturn().getResponse();
+        assertThat(createResponse.getStatus()).isEqualTo(HttpStatus.CREATED.value());
+        assertThat(createResponse.getContentAsString()).isEqualTo(invoiceViewModelJacksonTester.write(ivm).getJson());
+    }
 }

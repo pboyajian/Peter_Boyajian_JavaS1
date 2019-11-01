@@ -53,11 +53,11 @@ public class Invoice {
                 state.equals(invoice.state) &&
                 zipcode.equals(invoice.zipcode) &&
                 itemType.equals(invoice.itemType) &&
-                unitPrice.equals(invoice.unitPrice) &&
-                subtotal.equals(invoice.subtotal) &&
-                tax.equals(invoice.tax) &&
-                processingFee.equals(invoice.processingFee) &&
-                total.equals(invoice.total);
+                Objects.equals(unitPrice, invoice.unitPrice) &&
+                Objects.equals(subtotal, invoice.subtotal) &&
+                Objects.equals(tax, invoice.tax) &&
+                Objects.equals(processingFee, invoice.processingFee) &&
+                Objects.equals(total, invoice.total);
     }
 
     @Override
