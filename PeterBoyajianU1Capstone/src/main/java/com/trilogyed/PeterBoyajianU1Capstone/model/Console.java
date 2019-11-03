@@ -1,12 +1,17 @@
 package com.trilogyed.PeterBoyajianU1Capstone.model;
 
+import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Console extends Item{
+    @NotEmpty(message = "Console model cannot be empty.")
     private String model;
+    @NotEmpty(message = "Console manufacturer cannot be empty.")
     private String manufacturer;
+    @NotEmpty(message = "Console memoryAmount cannot be empty.")
     private String memoryAmount;
+    @NotEmpty(message = "Console processor cannot be empty.")
     private String processor;
 
     public Console() {

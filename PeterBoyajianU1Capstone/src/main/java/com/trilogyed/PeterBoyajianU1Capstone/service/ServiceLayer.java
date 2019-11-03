@@ -81,7 +81,7 @@ public class ServiceLayer {
     }
     public InvoiceViewModel findInvoiceViewModel(int invoiceId) {
         InvoiceViewModel ivm= buildInvoiceViewModel(invoiceDao.getInvoice(invoiceId));
-        ivm.setInvoiceId(invoiceId);
+        ivm.setId(invoiceId);
         return ivm;
     }
     public InvoiceViewModel saveInvoiceViewModel(InvoiceViewModel ivm) {
@@ -100,7 +100,7 @@ public class ServiceLayer {
         invoice.setItemType(getItemTypeFromInvoiceViewModel(ivm));
         invoice.setItemId(ivm.getItem().getId());
         invoice=invoiceDao.addInvoice(invoice);
-        ivm.setInvoiceId(invoice.getInvoiceId());
+        ivm.setId(invoice.getInvoiceId());
         return ivm;
     }
     public InvoiceViewModel saveInvoiceViewModel(Invoice invoice) {
@@ -128,7 +128,7 @@ public class ServiceLayer {
         List<InvoiceViewModel> ivmList = new ArrayList<>();
         invoices.forEach(invoice -> {
             InvoiceViewModel invoiceViewModelToAdd=buildInvoiceViewModel(invoice);
-            invoiceViewModelToAdd.setInvoiceId(invoice.getInvoiceId());
+            invoiceViewModelToAdd.setId(invoice.getInvoiceId());
             ivmList.add(invoiceViewModelToAdd);});
 
         return ivmList;

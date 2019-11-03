@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 public class InvoiceViewModel {
-    private int invoiceId;
+    private int id;
     private String name;
     private String street;
     private String city;
@@ -23,7 +23,7 @@ public class InvoiceViewModel {
     @Override
     public String toString() {
         return "InvoiceViewModel{" +
-                "invoiceId=" + invoiceId +
+                "invoiceId=" + id +
                 ", name='" + name + '\'' +
                 ", street='" + street + '\'' +
                 ", city='" + city + '\'' +
@@ -44,7 +44,7 @@ public class InvoiceViewModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         InvoiceViewModel that = (InvoiceViewModel) o;
-        return invoiceId == that.invoiceId &&
+        return id == that.id &&
                 quantity == that.quantity &&
                 name.equals(that.name) &&
                 street.equals(that.street) &&
@@ -61,15 +61,15 @@ public class InvoiceViewModel {
 
     @Override
     public int hashCode() {
-        return Objects.hash(invoiceId, name, street, city, state, zipcode, item, unitPrice, quantity, subtotal, tax, processingFee, total);
+        return Objects.hash(id, name, street, city, state, zipcode, item, unitPrice, quantity, subtotal, tax, processingFee, total);
     }
 
-    public int getInvoiceId() {
-        return invoiceId;
+    public int getId() {
+        return id;
     }
 
-    public void setInvoiceId(int invoiceId) {
-        this.invoiceId = invoiceId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

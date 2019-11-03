@@ -108,7 +108,7 @@ public void shouldGetGetAllAndPostInvoice(){
     console.setId(1);
     ivm.setItem(console);
     ivm=serviceLayer.saveInvoiceViewModel(ivm);
-    InvoiceViewModel returnedIvm=serviceLayer.findInvoiceViewModel(ivm.getInvoiceId());
+    InvoiceViewModel returnedIvm=serviceLayer.findInvoiceViewModel(ivm.getId());
     assertEquals(ivm,returnedIvm);
     List<InvoiceViewModel> invoiceViewModels=new ArrayList<>();
     invoiceViewModels.add(ivm);

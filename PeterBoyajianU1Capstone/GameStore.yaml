@@ -32,6 +32,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Game'
+        '400':
+          description: Missing information
     put:
       summary: update game
       requestBody:
@@ -61,11 +63,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Game'
+        '404':
+          description: We could not find a game with the provided id.
     delete:
       summary: delete game
       responses:
         '204':
           description: Successful
+        '404':
+          description: We could not find a game with the provided id.
   /game/studio/{studio}:
     parameters:
     - name: studio
@@ -83,6 +89,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ItemList'
+        '404':
+          description: We could not find a game with the provided studio.
   /game/rating/{rating}:
     parameters:
     - name: rating
@@ -100,6 +108,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ItemList'
+        '404':
+          description: We could not find a game with the provided ESRB Rating.
   /game/title/{title}:
     parameters:
     - name: title
@@ -109,7 +119,7 @@ paths:
       schema:
         type: string
     get:
-      summary: return Games for a title
+      summary: return all games whose titles contain the given string.
       responses:
         '200':
           description: Successful
@@ -117,6 +127,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ItemList'
+        '404':
+          description: We could not find a game with a matching title.
   /console:
     get:
       summary: return console list
@@ -142,6 +154,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Console'
+        '400':
+          description: Missing information.
     put:
       summary: update console
       requestBody:
@@ -152,7 +166,9 @@ paths:
               $ref: '#/components/schemas/Console'
       responses:
         '200':
-          description: Successful         
+          description: Successful
+        '400':
+          description: Invalid information entered.
   /console/{id}:
     parameters:
     - name: id
@@ -171,11 +187,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Console'
+        '404':
+          description: We could not find a console with the provided id.
     delete:
       summary: delete console
       responses:
         '204':
           description: Successful
+        '404':
+          description: We could not find a console with the provided id.
   /console/manufacturer/{manufacturer}:
     parameters:
     - name: manufacturer
@@ -193,6 +213,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ItemList'
+        '404':
+          description: We could not find a game with the provided manufacturer.
   /tshirt:
     get:
       summary: return tshirt list
@@ -218,6 +240,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TShirt'
+        '400':
+          description: Missing information.
     put:
       summary: update tshirt
       requestBody:
@@ -228,7 +252,9 @@ paths:
               $ref: '#/components/schemas/TShirt'
       responses:
         '200':
-          description: Successful         
+          description: Successful  
+        '400':
+          description: Invalid information entered.       
   /tshirt/{id}:
     parameters:
     - name: id
@@ -247,11 +273,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TShirt'
+        '404':
+          description: We could not find a TShirt with the provided id.
     delete:
       summary: delete tshirt
       responses:
         '204':
           description: Successful
+        '404':
+          description: We could not find a TShirt with the provided id.
   /tshirt/color/{color}:
     parameters:
     - name: color
@@ -269,6 +299,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ItemList'
+        '404':
+          description: We could not find a TShirt with the provided color.
   /tshirt/size/{size}:
     parameters:
     - name: size
@@ -286,6 +318,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ItemList'
+        '404':
+          description: We could not find a TShirt with the provided size.
   /purchase:
     post:
       summary: create invoice
@@ -294,14 +328,18 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/InvoiceViewModel'
+              $ref: '#/components/schemas/Invoice'
       responses:
         '201':
           description: Successful
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/InvoiceViewModel'     
+                $ref: '#/components/schemas/InvoiceViewModel'    
+        '400':
+          description: Missing information. 
+        '404':
+          description: Not Found. Invalid quantity or item id.
 components:
   schemas:
     Game:
@@ -376,10 +414,13 @@ components:
           type: integer
         price:
           type: number
+        quantity:
+          type: integer
       required: 
         - id
         - price
-    InvoiceViewModel:
+        - quantity
+    Invoice:
       properties:
         invoiceId:
           type: integer
@@ -394,9 +435,7 @@ components:
         zipcode:
           type: string
         itemType:
-          type: object
-          items:
-            $ref: '#/components/schemas/Item'
+          type: string
         itemId:
           type: integer
         unitPrice:
@@ -419,6 +458,51 @@ components:
         - zipcode
         - itemType
         - itemId
+        - quantity
+    InvoiceViewModel:
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        street:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zipcode:
+          type: string
+        item:
+          type: object
+          items:
+            $ref: '#/components/schemas/Item'
+        unitPrice:
+          type: number
+        quantity:
+          type: integer
+        subtotal:
+          type: number
+        tax:
+          type: number
+        processingFee:
+          type: number
+        total:
+          type: number
+      required: 
+        - name
+        - street
+        - city
+        - state
+        - zipcode
+        - item
+        - unitPrice
+        - quantity
+        - subtotal
+        - tax
+        - processingFee
+        - total
+      
     ItemList:
       type: array
       items:

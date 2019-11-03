@@ -1,10 +1,14 @@
 package com.trilogyed.PeterBoyajianU1Capstone.model;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
 public class TShirt extends Item {
+    @NotEmpty(message = "TShirt size cannot be empty.")
     private String size;
+    @NotEmpty(message = "TShirt color cannot be empty.")
     private String color;
+    @NotEmpty(message = "TShirt description cannot be empty.")
     private String description;
 
     public TShirt() {
