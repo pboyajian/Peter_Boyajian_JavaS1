@@ -34,6 +34,54 @@ public class ServiceLayerTest {
 
     }
 @Test
+public void shouldAddExpensiveProcessingFeeForOver10Items(){
+    Invoice tShirtInvoice=new Invoice();
+    tShirtInvoice.setCity("city");
+    tShirtInvoice.setItemId(6);
+    tShirtInvoice.setItemType("TShirt");
+    tShirtInvoice.setName("name");
+    tShirtInvoice.setState("IL");
+    tShirtInvoice.setStreet("street");
+    tShirtInvoice.setQuantity(17);
+    tShirtInvoice.setZipcode("66666");
+    BigDecimal expectedProcessingFee=BigDecimal.valueOf(15.49+1.98);
+    BigDecimal processingFee=serviceLayer.saveInvoiceViewModel(tShirtInvoice).getProcessingFee();
+    assertEquals(expectedProcessingFee,processingFee);
+
+}
+//@Test
+//public void shouldThrowErrorWhenQuantityInInvoiceIsTooHigh(){
+//    Invoice gameInvoice=new Invoice();
+//    gameInvoice.setCity("city");
+//    gameInvoice.setItemId(5);
+//    gameInvoice.setItemType("Game");
+//    gameInvoice.setName("name");
+//    gameInvoice.setState("IL");
+//    gameInvoice.setStreet("street");
+//    gameInvoice.setQuantity(7);
+//    gameInvoice.setZipcode("66666");
+//    Invoice consoleInvoice=new Invoice();
+//    consoleInvoice.setCity("city");
+//    consoleInvoice.setItemId(1);
+//    consoleInvoice.setItemType("Console");
+//    consoleInvoice.setName("name");
+//    consoleInvoice.setState("IL");
+//    consoleInvoice.setStreet("street");
+//    consoleInvoice.setQuantity(7);
+//    consoleInvoice.setZipcode("66666");
+//    Invoice tShirtInvoice=new Invoice();
+//    tShirtInvoice.setCity("city");
+//    tShirtInvoice.setItemId(6);
+//    tShirtInvoice.setItemType("TShirt");
+//    tShirtInvoice.setName("name");
+//    tShirtInvoice.setState("IL");
+//    tShirtInvoice.setStreet("street");
+//    tShirtInvoice.setQuantity(7);
+//    tShirtInvoice.setZipcode("66666");
+//    InvoiceViewModel returnedGameIVM=serviceLayer.saveInvoiceViewModel(gameInvoice);
+//    assertEquals(1,returnedGameIVM.getItem().getQuantity());
+//    }
+@Test
 public void shouldGetGetAllAndPostGame(){
     Game game=new Game();
     game.setPrice(BigDecimal.valueOf(7.77));
@@ -43,9 +91,9 @@ public void shouldGetGetAllAndPostGame(){
     game.setTitle("gameName");
     game.setQuantity(6);
     Game gameFromService=serviceLayer.addGame(game);
-    game.setId(1);
+    game.setId(5);
     assertEquals(game,gameFromService);
-    assertEquals(game,serviceLayer.getGame(1));
+    assertEquals(game,serviceLayer.getGame(5));
     List<Game> games=new ArrayList<>();
     games.add(game);
     assertEquals(games,serviceLayer.getAllGames());
@@ -54,7 +102,7 @@ public void shouldGetGetAllAndPostGame(){
 public void shouldGetGetAllAndPostConsole(){
     Console console=new Console();
     console.setPrice(BigDecimal.valueOf(7.77));
-    console.setQuantity(6);
+    console.setQuantity(8);
     console.setProcessor("i7");
     console.setModel("model 1");
     console.setMemoryAmount("500 GB");
@@ -76,9 +124,9 @@ public void shouldGetGetAllAndPostTShirt(){
     tShirt.setSize("xxxxxxxxxxxxxxxxl");
     tShirt.setQuantity(679);
     TShirt tShirtFromService=serviceLayer.addTShirt(tShirt);
-    tShirt.setId(1);
+    tShirt.setId(6);
     assertEquals(tShirt,tShirtFromService);
-    assertEquals(tShirt,serviceLayer.getTShirt(1));
+    assertEquals(tShirt,serviceLayer.getTShirt(6));
     List<TShirt> tShirts=new ArrayList<>();
     tShirts.add(tShirt);
     assertEquals(tShirts,serviceLayer.getAllTShirts());
@@ -100,7 +148,7 @@ public void shouldGetGetAllAndPostInvoice(){
 
     Console console=new Console();
     console.setPrice(BigDecimal.valueOf(7.77));
-    console.setQuantity(6);
+    console.setQuantity(8);
     console.setProcessor("i7");
     console.setModel("model 1");
     console.setMemoryAmount("500 GB");
@@ -138,7 +186,7 @@ public void shouldGetGameByStudioRatingAndTitle(){
     game.setStudio("Studio 1");
     game.setTitle("gameName");
     game.setQuantity(6);
-    game.setId(1);
+    game.setId(5);
     List<Game> games=new ArrayList<>();
     games.add(game);
     assertEquals(games,serviceLayer.getAllGamesByStudio("Studio 1"));
@@ -149,7 +197,7 @@ public void shouldGetGameByStudioRatingAndTitle(){
 public void shouldGetConsoleByManufacturer(){
     Console console=new Console();
     console.setPrice(BigDecimal.valueOf(7.77));
-    console.setQuantity(6);
+    console.setQuantity(8);
     console.setProcessor("i7");
     console.setModel("model 1");
     console.setMemoryAmount("500 GB");
@@ -167,7 +215,7 @@ public void shouldGetTShirtByColorAndSize(){
     tShirt.setDescription("ugly");
     tShirt.setSize("xxxxxxxxxxxxxxxxl");
     tShirt.setQuantity(679);
-    tShirt.setId(1);
+    tShirt.setId(6);
     List<TShirt> tShirts=new ArrayList<>();
     tShirts.add(tShirt);
     assertEquals(tShirts,serviceLayer.getAllTShirtsBySize("xxxxxxxxxxxxxxxxl"));
@@ -221,6 +269,10 @@ private void setUpProcessingFeeDaoMock() {
     processingFee2.setFee(BigDecimal.valueOf(14.99));
     processingFee2.setProduct_type("Consoles");
     doReturn(processingFee2).when(processingFeeDao).getProcessingFee("Consoles");
+    ProcessingFee processingFee3=new ProcessingFee();
+    processingFee3.setFee(BigDecimal.valueOf(1.98));
+    processingFee3.setProduct_type("TShirts");
+    doReturn(processingFee3).when(processingFeeDao).getProcessingFee("T-Shirts");
 }
 private void setUpTaxDaoMock() {
     taxDao=mock(TaxDao.class);
@@ -231,39 +283,101 @@ private void setUpTaxDaoMock() {
 }
 private void setUpInvoiceDaoMock() {
     invoiceDao=mock(InvoiceDao.class);
-    Invoice invoice=new Invoice();
-    invoice.setCity("city");
-    invoice.setItemId(1);
-    invoice.setItemType("Console");
-    invoice.setName("name");
-    invoice.setState("IL");
-    invoice.setStreet("street");
-    invoice.setQuantity(7);
-    invoice.setProcessingFee(BigDecimal.valueOf(14.99));
-    invoice.setSubtotal(BigDecimal.valueOf(54.39));
-    invoice.setTotal(BigDecimal.valueOf(72.0995));
-    invoice.setTax(BigDecimal.valueOf(2.7195));
-    invoice.setZipcode("66666");
-    invoice.setUnitPrice(BigDecimal.valueOf(7.77));
-    invoice.setInvoiceId(1);
-    Invoice invoice2=new Invoice();
-    invoice2.setCity("city");
-    invoice2.setItemId(1);
-    invoice2.setItemType("Console");
-    invoice2.setName("name");
-    invoice2.setState("IL");
-    invoice2.setStreet("street");
-    invoice2.setQuantity(7);
-    invoice2.setProcessingFee(BigDecimal.valueOf(14.99));
-    invoice2.setSubtotal(BigDecimal.valueOf(54.39));
-    invoice2.setTotal(BigDecimal.valueOf(72.0995));
-    invoice2.setTax(BigDecimal.valueOf(2.7195));
-    invoice2.setZipcode("66666");
-    invoice2.setUnitPrice(BigDecimal.valueOf(7.77));
+    Invoice consoleInvoice=new Invoice();
+    consoleInvoice.setCity("city");
+    consoleInvoice.setItemId(1);
+    consoleInvoice.setItemType("Console");
+    consoleInvoice.setName("name");
+    consoleInvoice.setState("IL");
+    consoleInvoice.setStreet("street");
+    consoleInvoice.setQuantity(7);
+    consoleInvoice.setProcessingFee(BigDecimal.valueOf(14.99));
+    consoleInvoice.setSubtotal(BigDecimal.valueOf(54.39));
+    consoleInvoice.setTotal(BigDecimal.valueOf(72.0995));
+    consoleInvoice.setTax(BigDecimal.valueOf(2.7195));
+    consoleInvoice.setZipcode("66666");
+    consoleInvoice.setUnitPrice(BigDecimal.valueOf(7.77));
+    consoleInvoice.setInvoiceId(1);
+    Invoice consoleInvoice2=new Invoice();
+    consoleInvoice2.setCity("city");
+    consoleInvoice2.setItemId(1);
+    consoleInvoice2.setItemType("Console");
+    consoleInvoice2.setName("name");
+    consoleInvoice2.setState("IL");
+    consoleInvoice2.setStreet("street");
+    consoleInvoice2.setQuantity(7);
+    consoleInvoice2.setProcessingFee(BigDecimal.valueOf(14.99));
+    consoleInvoice2.setSubtotal(BigDecimal.valueOf(54.39));
+    consoleInvoice2.setTotal(BigDecimal.valueOf(72.0995));
+    consoleInvoice2.setTax(BigDecimal.valueOf(2.7195));
+    consoleInvoice2.setZipcode("66666");
+    consoleInvoice2.setUnitPrice(BigDecimal.valueOf(7.77));
+    Invoice gameInvoice=new Invoice();
+    gameInvoice.setCity("city");
+    gameInvoice.setItemId(5);
+    gameInvoice.setItemType("Game");
+    gameInvoice.setName("name");
+    gameInvoice.setState("IL");
+    gameInvoice.setStreet("street");
+    gameInvoice.setQuantity(7);
+    gameInvoice.setZipcode("66666");
+    gameInvoice.setProcessingFee(BigDecimal.valueOf(1.49));
+    gameInvoice.setSubtotal(BigDecimal.valueOf(54.39));
+    gameInvoice.setTotal(BigDecimal.valueOf(58.5995));
+    gameInvoice.setTax(BigDecimal.valueOf(2.7195));
+    gameInvoice.setUnitPrice(BigDecimal.valueOf(7.77));
+    gameInvoice.setInvoiceId(1);
+    Invoice gameInvoice2=new Invoice();
+    gameInvoice2.setCity("city");
+    gameInvoice2.setItemId(5);
+    gameInvoice2.setItemType("Game");
+    gameInvoice2.setName("name");
+    gameInvoice2.setState("IL");
+    gameInvoice2.setStreet("street");
+    gameInvoice2.setQuantity(7);
+    gameInvoice2.setZipcode("66666");
+    gameInvoice2.setProcessingFee(BigDecimal.valueOf(1.49));
+    gameInvoice2.setSubtotal(BigDecimal.valueOf(54.39));
+    gameInvoice2.setTotal(BigDecimal.valueOf(58.5995));
+    gameInvoice2.setTax(BigDecimal.valueOf(2.7195));
+    gameInvoice2.setUnitPrice(BigDecimal.valueOf(7.77));
+    Invoice tShirtInvoice=new Invoice();
+    tShirtInvoice.setCity("city");
+    tShirtInvoice.setItemId(6);
+    tShirtInvoice.setItemType("TShirt");
+    tShirtInvoice.setName("name");
+    tShirtInvoice.setState("IL");
+    tShirtInvoice.setStreet("street");
+    tShirtInvoice.setQuantity(17);
+    tShirtInvoice.setInvoiceId(3);
+    tShirtInvoice.setZipcode("66666");
+    tShirtInvoice.setProcessingFee(BigDecimal.valueOf(17.47));
+    tShirtInvoice.setSubtotal(BigDecimal.valueOf(132.09));
+    tShirtInvoice.setTotal(BigDecimal.valueOf(156.1645));
+    tShirtInvoice.setTax(BigDecimal.valueOf(6.6045));
+    tShirtInvoice.setUnitPrice(BigDecimal.valueOf(7.77));
+    Invoice tShirtInvoice2=new Invoice();
+    tShirtInvoice2.setCity("city");
+    tShirtInvoice2.setItemId(6);
+    tShirtInvoice2.setItemType("TShirt");
+    tShirtInvoice2.setName("name");
+    tShirtInvoice2.setState("IL");
+    tShirtInvoice2.setStreet("street");
+    tShirtInvoice2.setQuantity(17);
+    tShirtInvoice2.setZipcode("66666");
+    tShirtInvoice2.setProcessingFee(BigDecimal.valueOf(17.47));
+    tShirtInvoice2.setSubtotal(BigDecimal.valueOf(132.09));
+    tShirtInvoice2.setTotal(BigDecimal.valueOf(156.1645));
+    tShirtInvoice2.setTax(BigDecimal.valueOf(6.6045));
+    tShirtInvoice2.setUnitPrice(BigDecimal.valueOf(7.77));
     List<Invoice> invoiceList = new ArrayList<>();
-    invoiceList.add(invoice);
-    doReturn(invoice).when(invoiceDao).addInvoice(invoice2);
-    doReturn(invoice).when(invoiceDao).getInvoice(1);
+    invoiceList.add(consoleInvoice);
+//    invoiceList.add(gameInvoice);
+//    invoiceList.add(tShirtInvoice);
+    doReturn(consoleInvoice).when(invoiceDao).addInvoice(consoleInvoice2);
+    doReturn(gameInvoice).when(invoiceDao).addInvoice(gameInvoice2);
+    doReturn(tShirtInvoice).when(invoiceDao).addInvoice(tShirtInvoice2);
+    doReturn(consoleInvoice).when(invoiceDao).getInvoice(1);
     doReturn(invoiceList).when(invoiceDao).getAllInvoices();
 }
 private void setUpTShirtDaoMock() {
@@ -274,7 +388,7 @@ private void setUpTShirtDaoMock() {
     tShirt.setDescription("ugly");
     tShirt.setSize("xxxxxxxxxxxxxxxxl");
     tShirt.setQuantity(679);
-    tShirt.setId(1);
+    tShirt.setId(6);
     TShirt tShirt2=new TShirt();
     tShirt2.setPrice(BigDecimal.valueOf(7.77));
     tShirt2.setColor("red");
@@ -284,7 +398,7 @@ private void setUpTShirtDaoMock() {
     List<TShirt> tShirtList = new ArrayList<>();
     tShirtList.add(tShirt);
     doReturn(tShirt).when(tShirtDao).addTShirt(tShirt2);
-    doReturn(tShirt).when(tShirtDao).getTShirt(1);
+    doReturn(tShirt).when(tShirtDao).getTShirt(6);
     doReturn(tShirtList).when(tShirtDao).getAllTShirts();
     doReturn(tShirtList).when(tShirtDao).getAllTShirtsByColor("red");
     doReturn(tShirtList).when(tShirtDao).getAllTShirtsBySize("xxxxxxxxxxxxxxxxl");
@@ -293,7 +407,7 @@ private void setUpConsoleDaoMock() {
     consoleDao=mock(ConsoleDao.class);
     Console console=new Console();
     console.setPrice(BigDecimal.valueOf(7.77));
-    console.setQuantity(6);
+    console.setQuantity(8);
     console.setProcessor("i7");
     console.setModel("model 1");
     console.setMemoryAmount("500 GB");
@@ -301,7 +415,7 @@ private void setUpConsoleDaoMock() {
     console.setId(1);
     Console console2=new Console();
     console2.setPrice(BigDecimal.valueOf(7.77));
-    console2.setQuantity(6);
+    console2.setQuantity(8);
     console2.setProcessor("i7");
     console2.setModel("model 1");
     console2.setMemoryAmount("500 GB");
@@ -322,7 +436,7 @@ private void setUpGameDaoMock() {
     game.setStudio("Studio 1");
     game.setTitle("gameName");
     game.setQuantity(6);
-    game.setId(1);
+    game.setId(5);
     Game game2=new Game();
     game2.setPrice(BigDecimal.valueOf(7.77));
     game2.setDescription("default description");
@@ -334,7 +448,7 @@ private void setUpGameDaoMock() {
     List<Game> gameList = new ArrayList<>();
     gameList.add(game);
     doReturn(game).when(gameDao).addGame(game2);
-    doReturn(game).when(gameDao).getGame(1);
+    doReturn(game).when(gameDao).getGame(5);
     doReturn(gameList).when(gameDao).getAllGames();
     doReturn(gameList).when(gameDao).getAllGamesByRating("bad");
     doReturn(gameList).when(gameDao).getAllGamesByStudio("Studio 1");

@@ -44,7 +44,7 @@ class GameControllerTest {
         game.setEsrbRating("bad");
         game.setStudio("Studio 1");
         game.setTitle("gameName");
-        game.setQuantity(6);
+        game.setQuantity(0);
     }
     @Test
     public void shouldGetAllGames() throws Exception {
@@ -85,6 +85,7 @@ class GameControllerTest {
         gameAdded.setId(1);
 
         given(serviceLayer.addGame(game)).willReturn(gameAdded);
+        given(serviceLayer.getGame(1)).willReturn(gameAdded);
         MockHttpServletResponse createResponse = mockMvc.perform(
                 post("/game")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -160,5 +161,22 @@ class GameControllerTest {
         ).andReturn().getResponse();
 
         assertThat(addNullResponse.getStatus()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY.value());
+    }
+
+    @Test
+    public void shouldReturn404WhenIdIsInvalid() throws Exception {
+
+        MockHttpServletResponse deleteResponse = mockMvc.perform(
+                delete("/game/10"))
+                .andReturn().getResponse();
+
+        assertThat(deleteResponse.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
+
+        MockHttpServletResponse response = mockMvc.perform(
+                get("/game/10")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
     }
 }

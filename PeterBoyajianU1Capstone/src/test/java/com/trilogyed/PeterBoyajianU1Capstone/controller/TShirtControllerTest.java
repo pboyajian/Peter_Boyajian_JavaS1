@@ -84,6 +84,7 @@ public class TShirtControllerTest {
         tShirtAdded.setId(1);
 
         given(serviceLayer.addTShirt(tShirt)).willReturn(tShirtAdded);
+        given(serviceLayer.getTShirt(1)).willReturn(tShirtAdded);
         MockHttpServletResponse createResponse = mockMvc.perform(
                 post("/tShirt")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -152,5 +153,21 @@ public class TShirtControllerTest {
         ).andReturn().getResponse();
 
         assertThat(addNullResponse.getStatus()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY.value());
+    }
+    @Test
+    public void shouldReturn404WhenIdIsInvalid() throws Exception {
+
+        MockHttpServletResponse deleteResponse = mockMvc.perform(
+                delete("/tshirt/10"))
+                .andReturn().getResponse();
+
+        assertThat(deleteResponse.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
+
+        MockHttpServletResponse response = mockMvc.perform(
+                get("/tshirt/10")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
     }
 }

@@ -84,6 +84,7 @@ public class ConsoleControllerTest {
         consoleAdded.setId(1);
 
         given(serviceLayer.addConsole(console)).willReturn(consoleAdded);
+        given(serviceLayer.getConsole(1)).willReturn(consoleAdded);
         MockHttpServletResponse createResponse = mockMvc.perform(
                 post("/console")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -143,5 +144,21 @@ public class ConsoleControllerTest {
         ).andReturn().getResponse();
 
         assertThat(addNullResponse.getStatus()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY.value());
+    }
+    @Test
+    public void shouldReturn404WhenIdIsInvalid() throws Exception {
+
+        MockHttpServletResponse deleteResponse = mockMvc.perform(
+                delete("/console/10"))
+                .andReturn().getResponse();
+
+        assertThat(deleteResponse.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
+
+        MockHttpServletResponse response = mockMvc.perform(
+                get("/console/10")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
     }
 }

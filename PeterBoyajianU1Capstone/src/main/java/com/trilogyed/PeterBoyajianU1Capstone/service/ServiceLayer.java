@@ -100,7 +100,7 @@ public class ServiceLayer {
         invoice.setName(ivm.getName());
         invoice.setItemType(getItemTypeFromInvoiceViewModel(ivm));
         invoice.setItemId(ivm.getItem().getId());
-        invoice=invoiceDao.addInvoice(invoice);
+        invoice=addInvoice(invoice);
         ivm.setId(invoice.getInvoiceId());
         if (ivm.getQuantity()>ivm.getItem().getQuantity()){
             throw new InvalidQuantityException("The quantity requested exceeds the quantity available.");
