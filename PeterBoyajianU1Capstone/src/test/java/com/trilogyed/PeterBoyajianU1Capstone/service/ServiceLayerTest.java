@@ -1,6 +1,7 @@
 package com.trilogyed.PeterBoyajianU1Capstone.service;
 
 import com.trilogyed.PeterBoyajianU1Capstone.dao.*;
+import com.trilogyed.PeterBoyajianU1Capstone.exceptions.InvalidQuantityException;
 import com.trilogyed.PeterBoyajianU1Capstone.model.*;
 import com.trilogyed.PeterBoyajianU1Capstone.viewmodel.InvoiceViewModel;
 import org.junit.Before;
@@ -49,38 +50,22 @@ public void shouldAddExpensiveProcessingFeeForOver10Items(){
     assertEquals(expectedProcessingFee,processingFee);
 
 }
-//@Test
-//public void shouldThrowErrorWhenQuantityInInvoiceIsTooHigh(){
-//    Invoice gameInvoice=new Invoice();
-//    gameInvoice.setCity("city");
-//    gameInvoice.setItemId(5);
-//    gameInvoice.setItemType("Game");
-//    gameInvoice.setName("name");
-//    gameInvoice.setState("IL");
-//    gameInvoice.setStreet("street");
-//    gameInvoice.setQuantity(7);
-//    gameInvoice.setZipcode("66666");
-//    Invoice consoleInvoice=new Invoice();
-//    consoleInvoice.setCity("city");
-//    consoleInvoice.setItemId(1);
-//    consoleInvoice.setItemType("Console");
-//    consoleInvoice.setName("name");
-//    consoleInvoice.setState("IL");
-//    consoleInvoice.setStreet("street");
-//    consoleInvoice.setQuantity(7);
-//    consoleInvoice.setZipcode("66666");
-//    Invoice tShirtInvoice=new Invoice();
-//    tShirtInvoice.setCity("city");
-//    tShirtInvoice.setItemId(6);
-//    tShirtInvoice.setItemType("TShirt");
-//    tShirtInvoice.setName("name");
-//    tShirtInvoice.setState("IL");
-//    tShirtInvoice.setStreet("street");
-//    tShirtInvoice.setQuantity(7);
-//    tShirtInvoice.setZipcode("66666");
-//    InvoiceViewModel returnedGameIVM=serviceLayer.saveInvoiceViewModel(gameInvoice);
-//    assertEquals(1,returnedGameIVM.getItem().getQuantity());
-//    }
+@Test
+public void shouldThrowErrorWhenQuantityInInvoiceIsTooHigh(){
+    Invoice gameInvoice=new Invoice();
+    gameInvoice.setCity("city");
+    gameInvoice.setItemId(5);
+    gameInvoice.setItemType("Game");
+    gameInvoice.setName("name");
+    gameInvoice.setState("IL");
+    gameInvoice.setStreet("street");
+    gameInvoice.setQuantity(7);
+    gameInvoice.setZipcode("66666");
+    try{InvoiceViewModel returnedGameIVM=serviceLayer.saveInvoiceViewModel(gameInvoice);}
+    catch(InvalidQuantityException iqe){
+        assertTrue(iqe.getMessage().contains("Invalid quantity"));
+    }
+    }
 @Test
 public void shouldGetGetAllAndPostGame(){
     Game game=new Game();
