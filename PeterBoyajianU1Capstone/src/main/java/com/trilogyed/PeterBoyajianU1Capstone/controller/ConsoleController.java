@@ -1,5 +1,6 @@
 package com.trilogyed.PeterBoyajianU1Capstone.controller;
 
+import com.trilogyed.PeterBoyajianU1Capstone.exceptions.NotFoundException;
 import com.trilogyed.PeterBoyajianU1Capstone.model.Console;
 import com.trilogyed.PeterBoyajianU1Capstone.service.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +31,19 @@ public class ConsoleController {
     }
     @GetMapping(value = "/{id}")
     public Console getConsoleById(@PathVariable int id){
-        return serviceLayer.getConsole(id);
+    Console console= serviceLayer.getConsole(id);
+        if (console==null){
+            throw new NotFoundException("We did not find a console with an id of "+id);
+    }
+        return console;
     }
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteConsoleById(@PathVariable int id){
+        Console console= serviceLayer.getConsole(id);
+        if (console==null){
+            throw new NotFoundException("We did not find a console with an id of "+id);
+        }
         serviceLayer.deleteConsoleById(id);
     }
     @GetMapping(value = "/manufacturer/{manufacturer}")

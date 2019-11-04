@@ -89,8 +89,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ItemList'
-        '404':
-          description: We could not find a game with the provided studio.
   /game/rating/{rating}:
     parameters:
     - name: rating
@@ -108,8 +106,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ItemList'
-        '404':
-          description: We could not find a game with the provided ESRB Rating.
   /game/title/{title}:
     parameters:
     - name: title
@@ -127,8 +123,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ItemList'
-        '404':
-          description: We could not find a game with a matching title.
   /console:
     get:
       summary: return console list
@@ -213,8 +207,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ItemList'
-        '404':
-          description: We could not find a game with the provided manufacturer.
   /tshirt:
     get:
       summary: return tshirt list
@@ -299,8 +291,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ItemList'
-        '404':
-          description: We could not find a TShirt with the provided color.
   /tshirt/size/{size}:
     parameters:
     - name: size
@@ -318,8 +308,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ItemList'
-        '404':
-          description: We could not find a TShirt with the provided size.
   /purchase:
     post:
       summary: create invoice
@@ -337,9 +325,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/InvoiceViewModel'    
         '400':
-          description: Missing information. 
+          description: Missing or invalid information.
         '404':
-          description: Not Found. Invalid quantity or item id.
+          description: Not Found. Invalid item id.
 components:
   schemas:
     Game:

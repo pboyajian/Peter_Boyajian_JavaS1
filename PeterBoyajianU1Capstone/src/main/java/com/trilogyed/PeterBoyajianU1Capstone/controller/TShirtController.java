@@ -1,5 +1,6 @@
 package com.trilogyed.PeterBoyajianU1Capstone.controller;
 
+import com.trilogyed.PeterBoyajianU1Capstone.exceptions.NotFoundException;
 import com.trilogyed.PeterBoyajianU1Capstone.model.TShirt;
 import com.trilogyed.PeterBoyajianU1Capstone.service.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,19 @@ public class TShirtController {
     }
     @GetMapping(value = "/{id}")
     public TShirt getTShirtById(@PathVariable int id){
-        return serviceLayer.getTShirt(id);
+        TShirt tShirt= serviceLayer.getTShirt(id);
+        if (tShirt==null){
+            throw new NotFoundException("We did not find a tShirt with an id of "+id);
+        }
+        return tShirt;
     }
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-
     public void deleteTShirtById(@PathVariable int id){
+        TShirt tShirt= serviceLayer.getTShirt(id);
+        if (tShirt==null){
+            throw new NotFoundException("We did not find a tShirt with an id of "+id);
+        }
         serviceLayer.deleteTShirtById(id);
     }
     @GetMapping(value = "/size/{size}")

@@ -1,6 +1,8 @@
 package com.trilogyed.PeterBoyajianU1Capstone.controller;
 
 
+import com.trilogyed.PeterBoyajianU1Capstone.exceptions.NotFoundException;
+import com.trilogyed.PeterBoyajianU1Capstone.exceptions.InvalidQuantityException;
 import org.springframework.hateoas.mediatype.vnderrors.VndErrors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,11 +42,22 @@ public class ControllerExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
-    @ExceptionHandler(value = {IllegalArgumentException.class})
-    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    public ResponseEntity<VndErrors> handleOutOfRangeException(IllegalArgumentException e, WebRequest request) {
+    @ExceptionHandler(value = {NotFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<VndErrors> handleNotFoundException(NotFoundException e, WebRequest request) {
         VndErrors error = new VndErrors(request.toString(), e.getMessage());
-        return new ResponseEntity<>(error, HttpStatus.UNPROCESSABLE_ENTITY);
+        ResponseEntity<VndErrors> responseEntity = new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+        return responseEntity;
     }
+
+    @ExceptionHandler(value = {InvalidQuantityException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<VndErrors> handleInvalidQuantityException(InvalidQuantityException e, WebRequest request) {
+        VndErrors error = new VndErrors(request.toString(), e.getMessage());
+        ResponseEntity<VndErrors> responseEntity = new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+        return responseEntity;
+    }
+
+
 }
 

@@ -1,5 +1,6 @@
 package com.trilogyed.PeterBoyajianU1Capstone.controller;
 
+import com.trilogyed.PeterBoyajianU1Capstone.exceptions.InvalidQuantityException;
 import com.trilogyed.PeterBoyajianU1Capstone.model.Invoice;
 import com.trilogyed.PeterBoyajianU1Capstone.service.ServiceLayer;
 import com.trilogyed.PeterBoyajianU1Capstone.viewmodel.InvoiceViewModel;
@@ -17,7 +18,11 @@ public class InvoiceViewModelController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public InvoiceViewModel createInvoiceViewModel(@RequestBody @Valid Invoice invoice){
-        return serviceLayer.saveInvoiceViewModel(invoice);
+        InvoiceViewModel ivm= serviceLayer.saveInvoiceViewModel(invoice);
+        if (ivm.getQuantity()>ivm.getItem().getQuantity()){
+            throw new InvalidQuantityException("The quantity requested exceeds the quantity available.");
+        }
+        return ivm;
     }
 
 }

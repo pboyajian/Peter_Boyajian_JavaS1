@@ -1,18 +1,31 @@
 package com.trilogyed.PeterBoyajianU1Capstone.model;
 
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Invoice {
     private int invoiceId;
+    @NotEmpty(message = "Name cannot be blank")
     private String name;
+    @NotEmpty(message = "Street cannot be blank")
     private String street;
+    @NotEmpty(message = "City cannot be blank")
     private String city;
+    @NotEmpty(message = "State cannot be blank")
+    @Length(min = 2,max = 2,message = "Must enter a two-letter abbreviation.")
     private String state;
+    @NotEmpty(message = "Zipcode cannot be blank")
+    @Length(min = 5,max = 5,message = "Zipcode must be 5 digits long.")
     private String zipcode;
+    @NotEmpty(message = "Item Type cannot be blank")
     private String itemType;
     private int itemId;
     private BigDecimal unitPrice;
+    @Min(value = 0,message = "Quantity must be positive.")
     private int quantity;
     private BigDecimal subtotal;
     private BigDecimal tax;
