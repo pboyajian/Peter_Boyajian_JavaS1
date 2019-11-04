@@ -1,6 +1,7 @@
 package com.trilogyed.PeterBoyajianU1Capstone.service;
 
 import com.trilogyed.PeterBoyajianU1Capstone.dao.*;
+import com.trilogyed.PeterBoyajianU1Capstone.exceptions.InvalidQuantityException;
 import com.trilogyed.PeterBoyajianU1Capstone.model.*;
 import com.trilogyed.PeterBoyajianU1Capstone.viewmodel.InvoiceViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,8 +71,8 @@ public class ServiceLayer {
     public List<Game> getAllGamesByRating(String rating) {
         return gameDao.getAllGamesByRating(rating);
     }
-    public List<Console> getAllConsolesByManufacturer(String manu) {
-        return consoleDao.getAllConsolesByManufacturer(manu);
+    public List<Console> getAllConsolesByManufacturer(String manufacturer) {
+        return consoleDao.getAllConsolesByManufacturer(manufacturer);
     }
     public List<TShirt> getAllTShirtsByColor(String color) {
         return tShirtDao.getAllTShirtsByColor(color);
@@ -101,6 +102,21 @@ public class ServiceLayer {
         invoice.setItemId(ivm.getItem().getId());
         invoice=invoiceDao.addInvoice(invoice);
         ivm.setId(invoice.getInvoiceId());
+        if (ivm.getQuantity()>ivm.getItem().getQuantity()){
+            throw new InvalidQuantityException("The quantity requested exceeds the quantity available.");
+        }else{
+            Item item=ivm.getItem();
+            item.setQuantity(item.getQuantity()-ivm.getQuantity());
+            String itemType=invoice.getItemType();
+            if (itemType.equalsIgnoreCase("game")){
+                updateGame((Game) item);
+            }
+            else if (itemType.equalsIgnoreCase("console")){
+                updateConsole((Console) item);
+            }
+            else {
+                updateTShirt((TShirt) item);}
+        }
         return ivm;
     }
     public InvoiceViewModel saveInvoiceViewModel(Invoice invoice) {

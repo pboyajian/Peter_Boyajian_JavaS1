@@ -19,9 +19,6 @@ public class InvoiceViewModelController {
     @ResponseStatus(HttpStatus.CREATED)
     public InvoiceViewModel createInvoiceViewModel(@RequestBody @Valid Invoice invoice){
         InvoiceViewModel ivm= serviceLayer.saveInvoiceViewModel(invoice);
-        if (ivm.getQuantity()>ivm.getItem().getQuantity()){
-            throw new InvalidQuantityException("The quantity requested exceeds the quantity available.");
-        }
         return ivm;
     }
 
