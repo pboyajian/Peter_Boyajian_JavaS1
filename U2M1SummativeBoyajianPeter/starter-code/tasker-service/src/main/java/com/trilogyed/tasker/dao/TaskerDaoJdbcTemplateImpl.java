@@ -28,7 +28,7 @@ public class TaskerDaoJdbcTemplateImpl implements TaskerDao {
     public static final String UPDATE_TASK =
             "update task set task_description = ?, create_date = ?, due_date = ?, category = ? where task_id = ?";
     public static final String DELETE_TASK =
-            "delete from task";
+            "delete from task where task_id=?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -67,7 +67,8 @@ public class TaskerDaoJdbcTemplateImpl implements TaskerDao {
 
     @Override
     public List<Task> getTasksByCategory(String category) {
-        return jdbcTemplate.query(SELECT_TASKS_BY_CATEGORY,this::mapRowToTask);
+        return jdbcTemplate.query(SELECT_TASKS_BY_CATEGORY,this::mapRowToTask,category);
+
     }
 
     @Override
