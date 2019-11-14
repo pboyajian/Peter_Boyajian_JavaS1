@@ -1,5 +1,6 @@
 package com.trilogyed.tasker.controller;
 
+import com.trilogyed.tasker.exception.InvalidIdException;
 import com.trilogyed.tasker.model.Task;
 import com.trilogyed.tasker.model.TaskViewModel;
 import com.trilogyed.tasker.service.TaskerServiceLayer;
@@ -35,12 +36,20 @@ public class TaskerController {
 
     @RequestMapping(value = "/tasks/{id}", method = RequestMethod.DELETE)
     public void deleteTask(@PathVariable int id) {
+        TaskViewModel task= service.fetchTask(id);
+        if (task==null){
+            throw new InvalidIdException("We did not find a Task with an id of "+id);
+        }
         service.deleteTask(id);
     }
 
-    @GetMapping(value = "/tasks/id")
+    @GetMapping(value = "/tasks/{id}")
     public TaskViewModel findTaskById(@PathVariable int id){
-        return service.fetchTask(id);
+        TaskViewModel task= service.fetchTask(id);
+        if (task==null){
+            throw new InvalidIdException("We did not find a Task with an id of "+id);
+        }
+        return task;
     }
 
     @GetMapping(value = "/tasks/category/{category}")

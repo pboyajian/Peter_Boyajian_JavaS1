@@ -23,6 +23,7 @@ public class TaskerServiceLayer {
     public TaskViewModel fetchTask(int id) {
 
         Task task = dao.getTask(id);
+        if(task==null){return null;}
         TaskViewModel tvm = new TaskViewModel();
 
         tvm.setId(task.getId());

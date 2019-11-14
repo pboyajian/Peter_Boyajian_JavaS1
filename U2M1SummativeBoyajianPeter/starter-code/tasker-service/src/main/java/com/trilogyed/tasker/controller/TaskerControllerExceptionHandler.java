@@ -1,5 +1,6 @@
 package com.trilogyed.tasker.controller;
 
+import com.trilogyed.tasker.exception.InvalidIdException;
 import org.springframework.hateoas.mediatype.vnderrors.VndErrors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-    @RestControllerAdvice
+@RestControllerAdvice
    public class TaskerControllerExceptionHandler {
         @ExceptionHandler(value = {MethodArgumentNotValidException.class})
         @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
@@ -24,7 +25,6 @@ import java.util.List;
             BindingResult result=e.getBindingResult();
             List<FieldError> fieldErrors=result.getFieldErrors();
             List<VndErrors.VndError> vndErrorList=new ArrayList<>();
-
             for (FieldError fieldError :
                     fieldErrors) {
                 VndErrors.VndError vndError=new VndErrors.VndError(request.toString(), fieldError.getDefaultMessage());
@@ -38,5 +38,12 @@ import java.util.List;
         public ResponseEntity<VndErrors> handleOutOfRangeException(HttpMessageNotReadableException e, WebRequest request) {
             VndErrors error = new VndErrors(request.toString(), e.getMessage());
             return new ResponseEntity<>(error, HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+
+        @ExceptionHandler(value = {InvalidIdException.class})
+        @ResponseStatus(HttpStatus.NOT_FOUND)
+        public ResponseEntity<VndErrors> handleInvalidIdException(InvalidIdException e, WebRequest request) {
+            VndErrors error = new VndErrors(request.toString(), e.getMessage());
+            return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
         }
 }

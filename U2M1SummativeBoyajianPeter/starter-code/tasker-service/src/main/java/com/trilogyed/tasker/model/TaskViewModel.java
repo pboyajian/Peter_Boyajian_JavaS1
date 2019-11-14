@@ -12,7 +12,7 @@ import java.util.Objects;
 
 public class TaskViewModel {
     private int id;
-    @NotEmpty
+    @NotEmpty(message = "Description can not be empty.")
     private String description;
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
@@ -22,10 +22,9 @@ public class TaskViewModel {
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dueDate;
-    @NotEmpty
+    @NotEmpty(message = "Category should not be empty.")
     private String category;
     private String advertisement;
-
     public int getId() {
         return id;
     }

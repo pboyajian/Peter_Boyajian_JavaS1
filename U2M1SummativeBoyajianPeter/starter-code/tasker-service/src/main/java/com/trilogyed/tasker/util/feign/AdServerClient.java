@@ -6,5 +6,5 @@ import org.springframework.web.bind.annotation.GetMapping;
 @FeignClient(name="adserver-service")
 public interface AdServerClient {
     @GetMapping(value = "/ad")
-    public String getAd();
+    String getAd();
 }
