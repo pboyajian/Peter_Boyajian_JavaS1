@@ -10,7 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.activation.DataSource;
+import javax.sql.DataSource;
+
 
 @Configuration
 @EnableWebSecurity
@@ -25,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
 
         authBuilder.jdbcAuthentication()
-                .dataSource((javax.sql.DataSource) dataSource)
+                .dataSource(dataSource)
                 .usersByUsernameQuery(
                         "select username, password, enabled from users where username = ?")
                 .authoritiesByUsernameQuery(
